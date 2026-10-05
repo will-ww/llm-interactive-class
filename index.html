@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大模型原理 · 交互课堂</title>
+<style>
+  :root{
+    --bg:#0a0f1e;
+    --bg2:#0e1530;
+    --card:rgba(148,163,255,.06);
+    --border:rgba(148,163,255,.16);
+    --text:#e7ebff;
+    --muted:#98a3c8;
+    --accent:#7c8cff;
+    --accent2:#4fd1c5;
+    --good:#2ed573;
+    --bad:#ff6b81;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"PingFang SC","Microsoft YaHei","Segoe UI",system-ui,-apple-system,sans-serif;
+    line-height:1.75;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-1;
+    background:
+      radial-gradient(600px 400px at 15% 5%, rgba(124,140,255,.14), transparent 60%),
+      radial-gradient(700px 500px at 85% 30%, rgba(79,209,197,.10), transparent 60%),
+      radial-gradient(500px 400px at 50% 90%, rgba(255,107,129,.06), transparent 60%);
+  }
+  ::selection{background:rgba(124,140,255,.35)}
+
+  /* ---------- 导航 ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;gap:18px;
+    padding:12px 22px;
+    background:rgba(10,15,30,.72);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+  }
+  .brand{font-weight:800;font-size:16px;white-space:nowrap;letter-spacing:.5px}
+  .brand b{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav-links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{
+    color:var(--muted);text-decoration:none;font-size:13px;
+    padding:6px 11px;border-radius:999px;white-space:nowrap;transition:.2s;
+  }
+  .nav-links a:hover{color:var(--text);background:rgba(148,163,255,.1)}
+  .nav-links a.active{color:#fff;background:linear-gradient(90deg,var(--accent),#5a6cf0)}
+
+  /* ---------- 布局 ---------- */
+  main{max-width:980px;margin:0 auto;padding:0 20px}
+  section{padding:90px 0 30px;scroll-margin-top:70px}
+  .kicker{color:var(--accent2);font-size:13px;letter-spacing:3px;font-weight:700;margin-bottom:8px}
+  h1{font-size:clamp(34px,6vw,58px);line-height:1.2;font-weight:900}
+  h2{font-size:clamp(24px,4vw,34px);margin-bottom:14px;font-weight:800}
+  h2 .num{
+    display:inline-block;font-size:.55em;vertical-align:middle;margin-right:10px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    color:#0a0f1e;border-radius:10px;padding:3px 10px;font-weight:900;
+  }
+  .grad{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  p.lead{color:var(--muted);max-width:720px;margin:14px 0}
+  .card{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:16px;padding:22px;margin:22px 0;
+  }
+  .card h3{font-size:17px;margin-bottom:12px;color:#cdd5ff}
+  .hint{color:var(--muted);font-size:13px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .divider{height:1px;background:var(--border);margin:40px 0}
+
+  /* ---------- 按钮 ---------- */
+  .btn{
+    display:inline-block;border:none;cursor:pointer;
+    padding:10px 20px;border-radius:12px;font-size:14px;font-weight:700;
+    color:#fff;background:linear-gradient(90deg,var(--accent),#5a6cf0);
+    box-shadow:0 4px 18px rgba(124,140,255,.35);
+    transition:transform .15s, box-shadow .15s;font-family:inherit;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,140,255,.45)}
+  .btn:active{transform:translateY(0)}
+  .btn.ghost{
+    background:transparent;border:1px solid var(--border);color:var(--text);
+    box-shadow:none;
+  }
+  .btn.ghost:hover{border-color:var(--accent);background:rgba(124,140,255,.08)}
+  .btn.small{padding:7px 14px;font-size:13px;border-radius:10px}
+  .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+  /* ---------- 首页 ---------- */
+  #home{padding-top:150px;min-height:88vh}
+  .hero-badge{
+    display:inline-block;font-size:13px;color:var(--accent2);
+    border:1px solid rgba(79,209,197,.4);border-radius:999px;
+    padding:5px 16px;margin-bottom:22px;background:rgba(79,209,197,.07);
+  }
+  .type-line{
+    margin-top:34px;font-family:"Cascadia Code",Consolas,monospace;
+    background:#0d1330;border:1px solid var(--border);border-radius:12px;
+    padding:16px 20px;font-size:15px;color:var(--muted);min-height:58px;
+  }
+  .type-line .prompt{color:#8f9bd0}
+  .type-line .pred{color:var(--accent2);font-weight:700}
+  .caret{display:inline-block;width:9px;height:1.1em;background:var(--accent2);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .hero-cta{margin-top:30px}
+
+  /* ---------- Token ---------- */
+  input[type=text],textarea{
+    width:100%;background:#0d1330;border:1px solid var(--border);color:var(--text);
+    border-radius:12px;padding:12px 14px;font-size:15px;font-family:inherit;resize:vertical;
+  }
+  input[type=text]:focus,textarea:focus{outline:none;border-color:var(--accent)}
+  .chip{
+    display:inline-block;padding:6px 12px;border-radius:9px;margin:4px;
+    font-weight:700;font-size:15px;color:#fff;
+    animation:pop .3s ease both;
+  }
+  @keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+  .token-out{min-height:60px;margin-top:14px;line-height:2.2}
+  .stat-pill{
+    display:inline-flex;gap:8px;align-items:center;margin:6px 14px 0 0;
+    background:rgba(148,163,255,.08);border:1px solid var(--border);
+    padding:6px 14px;border-radius:999px;font-size:13px;color:var(--muted);
+  }
+  .stat-pill b{color:var(--accent2);font-size:16px}
+
+  /* ---------- Embedding ---------- */
+  canvas{display:block;width:100%;border-radius:12px;background:rgba(10,14,34,.6)}
+  .emb-wrap{position:relative}
+  .emb-caption{margin-top:10px;font-size:14px;color:var(--muted);min-height:24px}
+  .emb-caption b{color:var(--accent2)}
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .legend span{font-size:12px;padding:3px 12px;border-radius:999px;border:1px solid var(--border)}
+
+  /* ---------- 注意力 ---------- */
+  .att-tokens{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0}
+  .att-tok{
+    padding:9px 13px;border-radius:10px;cursor:pointer;font-weight:700;font-size:15px;
+    background:rgba(255,255,255,.05);border:1px solid rgba(148,163,255,.15);
+    transition:transform .15s, border-color .15s, background .2s;
+  }
+  .att-tok:hover{transform:translateY(-2px)}
+  .att-tok.sel{border-color:var(--accent2);box-shadow:0 0 0 2px rgba(79,209,197,.3)}
+  .att-note{
+    margin-top:14px;padding:13px 16px;border-radius:12px;font-size:14px;
+    background:rgba(79,209,197,.07);border:1px solid rgba(79,209,197,.25);color:#cfe9ff;
+    min-height:52px;
+  }
+
+  /* ---------- 流水线 ---------- */
+  .pipe{display:flex;gap:12px;overflow-x:auto;padding:16px 4px}
+  .pipe-node{
+    min-width:132px;flex:0 0 auto;border-radius:14px;padding:16px 14px;
+    background:rgba(255,255,255,.03);border:1px solid var(--border);transition:.35s;text-align:center;
+  }
+  .pipe-node .no{
+    display:inline-block;width:28px;height:28px;line-height:28px;border-radius:8px;
+    font-weight:900;font-size:13px;background:rgba(148,163,255,.15);color:var(--accent);margin-bottom:8px;
+  }
+  .pipe-node .t{font-weight:700;font-size:14px}
+  .pipe-node .d{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.5}
+  .pipe-node.on{
+    border-color:var(--accent);background:rgba(124,140,255,.13);
+    transform:translateY(-5px);box-shadow:0 10px 26px rgba(124,140,255,.25);
+  }
+  .pipe-node.on .no{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0a0f1e}
+  .pipe-ctrl{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px}
+  .pipe-desc{
+    margin-top:16px;padding:16px 18px;border-radius:12px;min-height:76px;
+    background:rgba(124,140,255,.08);border:1px solid rgba(124,140,255,.25);
+  }
+  .pipe-desc b{color:var(--accent2)}
+  #pipeStep{font-weight:800;color:var(--accent2)}
+
+  /* ---------- 预测 ---------- */
+  .bar-row{display:flex;align-items:center;gap:12px;margin:9px 0}
+  .bar-label{width:64px;text-align:center;font-weight:800;font-size:16px;font-family:Consolas,monospace}
+  .bar-track{flex:1;height:12px;background:rgba(255,255,255,.07);border-radius:999px;overflow:hidden}
+  .bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:999px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+  .bar-pct{width:58px;font-size:13px;color:var(--muted);font-family:Consolas,monospace}
+  .gen-out{
+    margin-top:16px;padding:14px 16px;border-radius:12px;min-height:56px;
+    background:#0d1330;border:1px dashed var(--border);font-size:15px;line-height:2;
+  }
+  .gen-out .new{color:var(--accent2);font-weight:700}
+
+  /* ---------- 训练 ---------- */
+  .train-readouts{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px}
+  .readout{
+    flex:1;min-width:130px;background:rgba(148,163,255,.07);border:1px solid var(--border);
+    border-radius:12px;padding:10px 16px;text-align:center;
+  }
+  .readout .v{font-size:22px;font-weight:900;color:var(--accent2);font-family:Consolas,monospace}
+  .readout .k{font-size:12px;color:var(--muted)}
+
+  /* ---------- 测验 ---------- */
+  .quiz-card{margin:18px 0}
+  .quiz-q{font-weight:800;font-size:16px;margin-bottom:10px}
+  .opt{
+    display:block;width:100%;text-align:left;padding:11px 16px;margin:7px 0;
+    border-radius:11px;border:1px solid var(--border);cursor:pointer;
+    background:rgba(255,255,255,.03);color:var(--text);font-size:14.5px;font-family:inherit;
+    transition:.15s;
+  }
+  .opt:hover:not(:disabled){border-color:var(--accent);background:rgba(124,140,255,.08)}
+  .opt.correct{background:rgba(46,213,115,.14);border-color:var(--good)}
+  .opt.wrong{background:rgba(255,107,129,.13);border-color:var(--bad)}
+  .opt:disabled{cursor:default}
+  .quiz-exp{
+    display:none;margin-top:10px;padding:11px 14px;border-radius:10px;font-size:13.5px;
+    background:rgba(79,209,197,.07);border:1px solid rgba(79,209,197,.25);color:#cfe9ff;
+  }
+  .quiz-exp.show{display:block}
+  .score-box{
+    text-align:center;padding:26px;font-size:20px;font-weight:800;border-radius:16px;
+    background:linear-gradient(135deg,rgba(124,140,255,.14),rgba(79,209,197,.12));
+    border:1px solid var(--border);margin-top:22px;
+  }
+
+  /* ---------- 揭示动画 ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.visible{opacity:1;transform:none}
+
+  footer{
+    text-align:center;color:var(--muted);font-size:13px;
+    padding:60px 20px 40px;border-top:1px solid var(--border);margin-top:60px;
+  }
+  footer .sum{max-width:680px;margin:0 auto 14px;color:var(--text);font-size:15px}
+  @media (max-width:640px){
+    nav{gap:10px;padding:10px 14px}
+    .brand{font-size:14px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand"><b>◆ 大模型原理</b> · 交互课堂</div>
+  <div class="nav-links">
+    <a href="#home" class="active">首页</a>
+    <a href="#tokens">Token</a>
+    <a href="#embedding">Embedding</a>
+    <a href="#attention">注意力</a>
+    <a href="#transformer">Transformer</a>
+    <a href="#predict">预测实验</a>
+    <a href="#training">训练</a>
+    <a href="#quiz">测验</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ================= 首页 ================= -->
+<section id="home">
+  <span class="hero-badge">零基础 · 交互式 · 无需安装任何东西</span>
+  <h1>大语言模型<br><span class="grad">到底是怎么工作的？</span></h1>
+  <p class="lead">
+    大模型看似神秘，本质却可以用一句话概括：<b style="color:var(--text)">它是一台超级"文字接龙"机器</b>——
+    根据上文，不断预测下一个最可能出现的词。本课堂用 6 个可以亲手操作的实验，
+    带你一步步看清它背后的原理。
+  </p>
+  <div class="type-line" id="typeLine"><span class="caret"></span></div>
+  <div class="row hero-cta">
+    <a class="btn" href="#tokens">开始第一课</a>
+    <a class="btn ghost" href="#predict">直接动手玩</a>
+  </div>
+</section>
+
+<!-- ================= 01 Token ================= -->
+<section id="tokens" class="reveal">
+  <div class="kicker">LESSON 01</div>
+  <h2><span class="num">01</span>Token：大模型的"字母表"</h2>
+  <p class="lead">
+    模型读不懂整段文字，它看到的全是<b>最小处理单位 —— Token</b>。
+    一个 Token 可能是一个汉字、一个英文单词，或单词的一个片段。
+    模型的一切计算，都建立在这些小块之上。
+  </p>
+  <div class="card">
+    <h3>动手试试：输入文字，实时看它被切成多少个 Token</h3>
+    <input type="text" id="tokInput" value="我喜欢学习大模型！" maxlength="60">
+    <div class="row" style="margin-top:12px">
+      <button class="btn small ghost" data-tok="人工智能很神奇">人工智能很神奇</button>
+      <button class="btn small ghost" data-tok="I love AI">I love AI</button>
+      <button class="btn small ghost" data-tok="ChatGPT 会说中文">ChatGPT 会说中文</button>
+    </div>
+    <div class="token-out" id="tokOut"></div>
+    <div style="margin-top:10px">
+      <span class="stat-pill">Token 总数 <b id="tokCount">0</b></span>
+      <span class="stat-pill">字符数 <b id="charCount">0</b></span>
+    </div>
+    <p class="hint" style="margin-top:14px">
+      观察：一个汉字通常就是 1 个 Token（颜色块）；一个英文单词往往会被切成 2~3 个片段。
+      这就是为什么处理英文时"按词计费"，而处理中文时"按字计费"。
+    </p>
+  </div>
+</section>
+
+<!-- ================= 02 Embedding ================= -->
+<section id="embedding" class="reveal">
+  <div class="kicker">LESSON 02</div>
+  <h2><span class="num">02</span>Embedding：给每个词一个"坐标"</h2>
+  <p class="lead">
+    计算机只认识数字。每个 Token 都会被查表转换成一长串数字（向量），
+    这叫 <b>Embedding（嵌入）</b>。语义相近的词，坐标也相近——
+    <b style="color:var(--accent2)">把鼠标悬停在图上任意词上</b>，看看谁离它最近。
+  </p>
+  <div class="card">
+    <div class="emb-wrap">
+      <canvas id="embCanvas" height="440"></canvas>
+      <div class="emb-caption" id="embCaption">悬停某个词，看看它的"邻居"是谁。</div>
+      <div class="legend" id="embLegend"></div>
+    </div>
+    <div class="divider"></div>
+    <h3>著名实验：向量也能做算术</h3>
+    <p class="hint" style="margin-bottom:12px">
+      如果 Embedding 真的编码了语义，那么"国王 − 男人 + 女人"的结果，应该落在"王后"附近。点按钮看动画：
+    </p>
+    <button class="btn" id="analogyBtn">演示：国王 − 男人 + 女人 ≈ ？</button>
+    <div class="emb-caption" id="analogyResult"></div>
+  </div>
+</section>
+
+<!-- ================= 03 注意力 ================= -->
+<section id="attention" class="reveal">
+  <div class="kicker">LESSON 03</div>
+  <h2><span class="num">03</span>注意力机制：词语之间的"互相打量"</h2>
+  <p class="lead">
+    同一个词在不同语境中意思完全不同（想想"苹果"是水果还是公司？）。
+    模型靠 <b>Attention（注意力）</b> 让每个词去"打量"上下文中的其他词，
+    颜色越深，表示关注得越多。<b style="color:var(--accent2)">点击句子中的任意词试试。</b>
+  </p>
+  <div class="card">
+    <div class="row" style="margin-bottom:6px" id="attSents"></div>
+    <div class="att-tokens" id="attTokens"></div>
+    <p class="hint">↑ 点击任意词语，观察它"回望"了谁（颜色越深 = 注意力权重越大）</p>
+    <div class="att-note" id="attNote">先点击一个词语，看看它的注意力都分配给了谁。</div>
+  </div>
+</section>
+
+<!-- ================= 04 Transformer ================= -->
+<section id="transformer" class="reveal">
+  <div class="kicker">LESSON 04</div>
+  <h2><span class="num">04</span>Transformer：一条流水生产线</h2>
+  <p class="lead">
+    把前面所有零件组装起来，就是著名的 <b>Transformer</b> 架构——
+    如今几乎所有大模型（GPT、Claude、Gemini……）都建立在它之上。
+    点"下一步"，看一段文字是如何一步步变成下一个词的。
+  </p>
+  <div class="card">
+    <div class="pipe" id="pipe"></div>
+    <div class="pipe-ctrl">
+      <button class="btn small ghost" id="pipePrev">← 上一步</button>
+      <button class="btn small" id="pipeNext">下一步 →</button>
+      <button class="btn small ghost" id="pipeAuto">▶ 自动播放</button>
+      <span class="hint" id="pipeStep">步骤 0 / 7</span>
+    </div>
+    <div class="pipe-desc" id="pipeDesc">点击"下一步"，开始观察文字流经流水线的全过程。</div>
+  </div>
+</section>
+
+<!-- ================= 05 预测 ================= -->
+<section id="predict" class="reveal">
+  <div class="kicker">LESSON 05 · 动手实验</div>
+  <h2><span class="num">05</span>亲手玩一玩：预测下一个字</h2>
+  <p class="lead">
+    下面是一个<b>在浏览器里实时训练的微型语言模型</b>（基于一段小故事学习"三元语法"）。
+    它只有几百个"参数"，真正的 GPT 有上万亿——但<b>原理完全相同</b>。
+  </p>
+  <div class="card">
+    <h3>输入几个字的上下文，让它预测下一个字</h3>
+    <textarea id="ctxInput" rows="2" maxlength="40">小明有一只小猫</textarea>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" id="predictBtn">预测下一个字</button>
+      <button class="btn ghost" id="genBtn">让它自由续写 80 字</button>
+    </div>
+    <div style="margin-top:18px" id="predBars"></div>
+    <div class="gen-out" id="genOut"><span class="hint">续写结果会出现在这里……</span></div>
+    <p class="hint" style="margin-top:14px">
+      思考：模型给出的不是一个确定的答案，而是<b>一堆概率</b>——真正的 GPT 也是这样，
+      只是它的"概率表"是从海量文本中学习出来的，并且考虑了前面几千个词。
+    </p>
+  </div>
+</section>
+
+<!-- ================= 06 训练 ================= -->
+<section id="training" class="reveal">
+  <div class="kicker">LESSON 06</div>
+  <h2><span class="num">06</span>训练：从错误中学习</h2>
+  <p class="lead">
+    模型的知识不是人工写进去的，而是<b>训练</b>出来的：先随便猜 → 对比正确答案 →
+    计算损失（错得有多离谱）→ 微调参数让损失变小。这个过程叫<b>梯度下降</b>，就像小球滚下山谷。
+  </p>
+  <div class="card">
+    <canvas id="trainCanvas" height="300"></canvas>
+    <div class="row" style="margin-top:16px">
+      <button class="btn" id="trainStepBtn">训练一步</button>
+      <button class="btn ghost" id="trainAutoBtn">▶ 自动训练</button>
+      <button class="btn ghost" id="trainResetBtn">重置</button>
+    </div>
+    <div class="train-readouts">
+      <div class="readout"><div class="v" id="roStep">0</div><div class="k">训练步数</div></div>
+      <div class="readout"><div class="v" id="roW">-2.50</div><div class="k">参数 w</div></div>
+      <div class="readout"><div class="v" id="roLoss">31.25</div><div class="k">损失 Loss（越小越好）</div></div>
+    </div>
+    <p class="hint" style="margin-top:14px">
+      小球总是沿着"下降最快的方向"滚动（负梯度）。真实模型有上万亿个参数，
+      想象在一个上万亿维的山谷里同时滚着无数个小球——这就是训练大模型的样子。
+    </p>
+  </div>
+</section>
+
+<!-- ================= 07 测验 ================= -->
+<section id="quiz" class="reveal">
+  <div class="kicker">FINAL QUIZ</div>
+  <h2><span class="num">07</span>小测验：你真的看懂了吗？</h2>
+  <p class="lead">四道题，答完立刻出解析。</p>
+  <div id="quizBox"></div>
+  <div class="score-box" id="scoreBox" style="display:none"></div>
+</section>
+
+</main>
+
+<footer>
+  <p class="sum">
+    一句话总结：<b class="grad">大模型 = 把文字变成向量（Embedding），
+    用注意力理解上下文，不断预测下一个词，再从错误中反复学习的机器。</b>
+  </p>
+  <p>大模型原理 · 交互课堂 —— 所有实验均在浏览器本地运行，无需联网</p>
+</footer>
+
+<script>
+/* ============================================================
+   工具函数
+============================================================ */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+function setupCanvas(cv, cssHeight){
+  const dpr = window.devicePixelRatio || 1;
+  const w = cv.clientWidth || cv.parentElement.clientWidth || 600;
+  cv.width = w * dpr;
+  cv.height = cssHeight * dpr;
+  cv.style.height = cssHeight + "px";
+  const ctx = cv.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { ctx, w, h: cssHeight };
+}
+
+/* ============================================================
+   滚动揭示动画 + 导航高亮
+============================================================ */
+const revealIO = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
+}, { threshold: .12 });
+$$(".reveal").forEach(el => revealIO.observe(el));
+
+const navLinks = $$(".nav-links a");
+const spyIO = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+    }
+  });
+}, { rootMargin: "-40% 0px -55% 0px" });
+$$("main section").forEach(s => spyIO.observe(s));
+
+/* ============================================================
+   首页打字机
+============================================================ */
+(function typewriter(){
+  const demos = [
+    { p: "输入：今天天气真", n: "好" },
+    { p: "输入：人工智能正在", n: "改变世界" },
+    { p: "输入：小猫在草地上", n: "跑来跑去" },
+    { p: "输入：大模型的本质是", n: "预测下一个词" },
+  ];
+  const box = $("#typeLine");
+  let di = 0, phase = "typeP", i = 0;
+  function tick(){
+    const d = demos[di];
+    if (phase === "typeP") {
+      i++;
+      box.innerHTML = '<span class="prompt">用户：</span>' + d.p.slice(0, i) + '<span class="caret"></span>';
+      if (i >= d.p.length) { phase = "pause"; i = 0; return setTimeout(tick, 500); }
+      return setTimeout(tick, 110);
+    }
+    if (phase === "pause") {
+      phase = "typeN";
+      return setTimeout(tick, 300);
+    }
+    if (phase === "typeN") {
+      i++;
+      box.innerHTML = '<span class="prompt">用户：</span>' + d.p +
+        '　→　<span class="pred">模型预测：' + d.n.slice(0, i) + '</span><span class="caret"></span>';
+      if (i >= d.n.length) { phase = "hold"; return setTimeout(tick, 1800); }
+      return setTimeout(tick, 160);
+    }
+    if (phase === "hold") {
+      di = (di + 1) % demos.length;
+      phase = "typeP"; i = 0;
+      return setTimeout(tick, 400);
+    }
+  }
+  tick();
+})();
+
+/* ============================================================
+   实验 1：Token 分词
+============================================================ */
+(function tokenizer(){
+  const input = $("#tokInput"), out = $("#tokOut"),
+        cnt = $("#tokCount"), cc = $("#charCount");
+  function tokenize(text){
+    const re = /[A-Za-z0-9]+|[一-鿿]|\S/g;
+    const t = []; let m;
+    while ((m = re.exec(text)) !== null) t.push(m[0]);
+    return t;
+  }
+  function render(){
+    const text = input.value;
+    const toks = tokenize(text);
+    out.innerHTML = "";
+    toks.forEach((t, i) => {
+      const span = document.createElement("span");
+      span.className = "chip";
+      span.style.background = `hsla(${(i * 67) % 360}, 70%, 55%, .85)`;
+      span.textContent = t;
+      out.appendChild(span);
+    });
+    cnt.textContent = toks.length;
+    cc.textContent = Array.from(text).length;
+  }
+  input.addEventListener("input", render);
+  $$("[data-tok]").forEach(b => b.addEventListener("click", () => {
+    input.value = b.dataset.tok; render();
+  }));
+  render();
+})();
+
+/* ============================================================
+   实验 2：Embedding 词向量
+============================================================ */
+(function embedding(){
+  const WORDS = [
+    { t:"苹果", c:"水果", x:-3,   y:4    }, { t:"香蕉", c:"水果", x:-2,   y:5.5  },
+    { t:"橙子", c:"水果", x:-4.5, y:5    }, { t:"葡萄", c:"水果", x:-4,   y:3    },
+    { t:"猫",   c:"动物", x:5,    y:2    }, { t:"狗",   c:"动物", x:6.5,  y:1    },
+    { t:"老虎", c:"动物", x:4,    y:.5   }, { t:"兔子", c:"动物", x:7,    y:3    },
+    { t:"国王", c:"人物", x:-5,   y:-6   }, { t:"王后", c:"人物", x:-5,   y:-2   },
+    { t:"男人", c:"人物", x:-2,   y:-6   }, { t:"女人", c:"人物", x:-2,   y:-2   },
+    { t:"王子", c:"人物", x:-3.5, y:-4   }, { t:"公主", c:"人物", x:-6.5, y:-3.5 },
+    { t:"太阳", c:"自然", x:1,    y:-4   }, { t:"月亮", c:"自然", x:3,    y:-5   },
+    { t:"星星", c:"自然", x:2,    y:-6.5 }, { t:"河流", c:"自然", x:0,    y:-3   },
+    { t:"学校", c:"学习", x:6,    y:-4   }, { t:"老师", c:"学习", x:7.5,  y:-5   },
+    { t:"学生", c:"学习", x:5.5,  y:-5.5 }, { t:"书本", c:"学习", x:7,    y:-3.2 },
+  ];
+  const COLORS = { 水果:"#4fd1c5", 动物:"#ffb35c", 人物:"#b78bff", 自然:"#7ee081", 学习:"#6ca8ff" };
+  const X0=-8, X1=8.5, Y0=-8, Y1=7;   // 逻辑坐标范围
+
+  const cv = $("#embCanvas");
+  const cap = $("#embCaption");
+  let geo = setupCanvas(cv, 440);
+  let hoverIdx = -1;
+  let anim = null;   // 类比演示动画状态
+
+  // 图例
+  const legend = $("#embLegend");
+  Object.entries(COLORS).forEach(([name, col]) => {
+    const s = document.createElement("span");
+    s.textContent = name;
+    s.style.borderColor = col;
+    s.style.color = col;
+    legend.appendChild(s);
+  });
+
+  const px = x => 34 + (x - X0) / (X1 - X0) * (geo.w - 60);
+  const py = y => 20 + (Y1 - y) / (Y1 - Y0) * (geo.h - 44);
+
+  function draw(){
+    const { ctx, w, h } = geo;
+    ctx.clearRect(0, 0, w, h);
+
+    // 网格
+    ctx.strokeStyle = "rgba(148,163,255,.08)";
+    ctx.lineWidth = 1;
+    for (let gx = Math.ceil(X0); gx <= X1; gx++){
+      ctx.beginPath(); ctx.moveTo(px(gx), py(Y1)); ctx.lineTo(px(gx), py(Y0)); ctx.stroke();
+    }
+    for (let gy = Math.ceil(Y0); gy <= Y1; gy++){
+      ctx.beginPath(); ctx.moveTo(px(X0), py(gy)); ctx.lineTo(px(X1), py(gy)); ctx.stroke();
+    }
+
+    // 悬停时的邻居连线
+    if (hoverIdx >= 0 && !anim){
+      const a = WORDS[hoverIdx];
+      const others = WORDS.map((b, i) => ({ b, i, d: Math.hypot(a.x-b.x, a.y-b.y) }))
+        .filter(o => o.i !== hoverIdx)
+        .sort((m, n) => m.d - n.d).slice(0, 3);
+      others.forEach(o => {
+        ctx.strokeStyle = "rgba(124,140,255," + Math.max(.15, .8 - o.d * .12) + ")";
+        ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(px(a.x), py(a.y)); ctx.lineTo(px(o.b.x), py(o.b.y)); ctx.stroke();
+      });
+    }
+
+    // 类比动画
+    if (anim){
+      const A = anim;   // {t, phase}
+      const king = WORDS.find(w2 => w2.t === "国王"),
+            man  = WORDS.find(w2 => w2.t === "男人"),
+            woman= WORDS.find(w2 => w2.t === "女人");
+      const rx = king.x + (woman.x - man.x), ry = king.y + (woman.y - man.y);
+      const arrow = (x1, y1, x2, y2, prog, col) => {
+        if (prog <= 0) return;
+        const ex = x1 + (x2 - x1) * prog, ey = y1 + (y2 - y1) * prog;
+        ctx.strokeStyle = col; ctx.lineWidth = 3; ctx.setLineDash([7, 5]);
+        ctx.beginPath(); ctx.moveTo(px(x1), py(y1)); ctx.lineTo(px(ex), py(ey)); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = col;
+        ctx.beginPath(); ctx.arc(px(ex), py(ey), 5, 0, 7); ctx.fill();
+      };
+      if (A.phase === 1){
+        arrow(man.x, man.y, woman.x, woman.y, A.t, "#4fd1c5");
+        ctx.fillStyle = "#4fd1c5";
+        ctx.font = "13px sans-serif";
+        ctx.fillText("女人 − 男人 = “性别方向”", px(man.x) - 60, py(man.y) + 44);
+      } else if (A.phase >= 2){
+        arrow(man.x, man.y, woman.x, woman.y, 1, "rgba(79,209,197,.35)");
+        arrow(king.x, king.y, rx, ry, A.t2, "#ff8fb3");
+        if (A.t2 >= 1){
+          ctx.fillStyle = "#ff8fb3";
+          ctx.beginPath(); ctx.arc(px(rx), py(ry), 8, 0, 7); ctx.fill();
+          ctx.font = "bold 13px sans-serif";
+          ctx.fillText("结果落在这里！", px(rx) - 40, py(ry) - 14);
+        }
+      }
+    }
+
+    // 词点
+    WORDS.forEach((wd, i) => {
+      const isHover = i === hoverIdx;
+      const r = isHover ? 10 : 7;
+      ctx.shadowColor = COLORS[wd.c]; ctx.shadowBlur = isHover ? 18 : 8;
+      ctx.fillStyle = COLORS[wd.c];
+      ctx.beginPath(); ctx.arc(px(wd.x), py(wd.y), r, 0, 7); ctx.fill();
+      ctx.shadowBlur = 0;
+      if (anim && anim.phase >= 3 && wd.t === "王后"){
+        ctx.strokeStyle = "#fff"; ctx.lineWidth = 2.5;
+        ctx.beginPath(); ctx.arc(px(wd.x), py(wd.y), 15, 0, 7); ctx.stroke();
+      }
+      ctx.fillStyle = isHover ? "#fff" : "rgba(231,235,255,.9)";
+      ctx.font = (isHover ? "bold 16px" : "14px") + " sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(wd.t, px(wd.x), py(wd.y) - 14);
+    });
+    ctx.textAlign = "left";
+  }
+
+  cv.addEventListener("mousemove", e => {
+    const r = cv.getBoundingClientRect();
+    const mx = e.clientX - r.left, my = e.clientY - r.top;
+    let best = -1, bd = 24;
+    WORDS.forEach((wd, i) => {
+      const d = Math.hypot(px(wd.x) - mx, py(wd.y) - my);
+      if (d < bd){ bd = d; best = i; }
+    });
+    if (best !== hoverIdx){
+      hoverIdx = best;
+      if (best >= 0){
+        const a = WORDS[best];
+        const near = WORDS.map((b, i) => ({ b, d: Math.hypot(a.x-b.x, a.y-b.y) }))
+          .filter(o => o.b !== a).sort((m, n) => m.d - n.d).slice(0, 3)
+          .map(o => "「" + o.b.t + "」").join("、");
+        cap.innerHTML = "与 <b>" + a.t + "</b> 最接近的词：" + near + " —— 语义相近的词，坐标也相近。";
+      } else {
+        cap.innerHTML = "悬停某个词，看看它的“邻居“是谁。";
+      }
+      draw();
+    }
+  });
+  cv.addEventListener("mouseleave", () => { hoverIdx = -1; cap.innerHTML = "悬停某个词，看看它的“邻居“是谁。"; draw(); });
+
+  // 向量算术演示
+  $("#analogyBtn").addEventListener("click", () => {
+    const res = $("#analogyResult");
+    res.textContent = "";
+    anim = { phase: 1, t: 0, t2: 0 };
+    const start = performance.now();
+    (function frame(now){
+      const el = (now - start) / 1000;
+      if (el < 1.4){ anim.phase = 1; anim.t = el / 1.4; }
+      else if (el < 3.0){ anim.phase = 2; anim.t = 1; anim.t2 = (el - 1.4) / 1.6; }
+      else {
+        anim.phase = 3; anim.t = 1; anim.t2 = 1;
+        res.innerHTML = "结果（粉色点）离 <b>王后</b> 最近！向量运算自动捕捉到了“性别“这个方向——这正是 Embedding 的魔力。";
+      }
+      draw();
+      if (el < 3.0) requestAnimationFrame(frame);
+      else setTimeout(() => { anim = null; draw(); }, 4000);
+    })(start);
+  });
+
+  window.addEventListener("resize", () => { geo = setupCanvas(cv, 440); draw(); });
+  draw();
+})();
+</script>
+<script>
+/* ============================================================
+   实验 3：注意力机制
+============================================================ */
+(function attention(){
+  const SENTS = [
+    {
+      label: "小猫追毛线球",
+      tokens: ["小猫","追","毛线球","，","因为","它","想","玩","。"],
+      focus: {
+        "它": { "小猫": .50, "玩": .16, "毛线球": .10, "想": .10, "追": .05, "因为": .04, "，": .01, "。": .04 },
+      },
+      noteForIt: "「它」回望去，超过一半的注意力落在了「小猫」身上——模型由此明白：是它（小猫）想玩。"
+    },
+    {
+      label: "苹果掉下来",
+      tokens: ["苹果","从","树上","掉","下来","，","因为","它","熟","了","。"],
+      focus: {
+        "它": { "苹果": .46, "熟": .22, "树上": .12, "下来": .07, "掉": .05, "因为": .04, "，": .01, "了": .02, "。": .01 },
+      },
+      noteForIt: "这里的「它」指的是「苹果」，而不是「树」——上下文决定了注意力该看向哪里。"
+    },
+    {
+      label: "谁装满了？（有歧义）",
+      tokens: ["小明","把","书包","放","进","柜子","，","因为","它","太","满","了","。"],
+      focus: {
+        "它": { "书包": .40, "柜子": .20, "满": .18, "小明": .08, "放": .04, "太": .03, "进": .02, "把": .02, "了": .02, "，": .01 },
+      },
+      noteForIt: "这句有歧义：「它」是指书包太满，还是柜子太满？模型会在两者之间分配注意力——连人类都要想一想呢。"
+    },
+  ];
+
+  const sentBox = $("#attSents"), tokBox = $("#attTokens"), note = $("#attNote");
+  let cur = 0;
+
+  SENTS.forEach((s, i) => {
+    const b = document.createElement("button");
+    b.className = "btn small ghost";
+    b.textContent = s.label;
+    b.addEventListener("click", () => { cur = i; render(); });
+    b.dataset.idx = i;
+    sentBox.appendChild(b);
+  });
+
+  function weightsFor(s, idx){
+    const t = s.tokens[idx];
+    if (s.focus[t]) return s.tokens.map(tok => s.focus[t][tok] || 0.005);
+    // 无预设：自己保留一部分，其余按距离衰减（模拟局部注意力）
+    const raw = s.tokens.map((_, j) => {
+      if (j === idx) return 4;
+      return 1 / (1 + Math.abs(j - idx));
+    });
+    const sum = raw.reduce((a, b) => a + b, 0);
+    return raw.map(r => r / sum);
+  }
+
+  function render(){
+    const s = SENTS[cur];
+    $$("#attSents .btn").forEach(b => {
+      b.style.borderColor = +b.dataset.idx === cur ? "var(--accent)" : "";
+      b.style.color = +b.dataset.idx === cur ? "#fff" : "";
+    });
+    tokBox.innerHTML = "";
+    s.tokens.forEach((t, i) => {
+      const d = document.createElement("div");
+      d.className = "att-tok";
+      d.textContent = t;
+      d.addEventListener("click", () => select(s, i));
+      tokBox.appendChild(d);
+    });
+    note.textContent = "先点击一个词语，看看它的注意力都分配给了谁。";
+  }
+
+  function select(s, idx){
+    const ws = weightsFor(s, idx);
+    const toks = $$("#attTokens .att-tok");
+    toks.forEach((el, i) => {
+      const w = ws[i];
+      el.classList.toggle("sel", i === idx);
+      el.style.background = i === idx
+        ? "rgba(79,209,197,.25)"
+        : `rgba(124,140,255,${(w * .95 + .03).toFixed(3)})`;
+      el.title = "注意力权重：" + (w * 100).toFixed(1) + "%";
+    });
+    const t = s.tokens[idx];
+    if (s.focus[t] && t === "它"){
+      note.textContent = s.noteForIt;
+    } else {
+      const top = s.tokens.map((tok, i) => ({ tok, w: ws[i] }))
+        .filter(o => o.tok !== t).sort((a, b) => b.w - a.w).slice(0, 3)
+        .map(o => "「" + o.tok + "」(" + (o.w * 100).toFixed(0) + "%)").join("、");
+      note.textContent = "「" + t + "」最关注的是：" + top + "。注意力就是让每个词动态地回指与它相关的词。";
+    }
+  }
+
+  render();
+})();
+
+/* ============================================================
+   实验 4：Transformer 流水线
+============================================================ */
+(function pipeline(){
+  const STAGES = [
+    { t: "输入文本",     d: "你提出的问题或一段话" },
+    { t: "Token 切分",   d: "文字被切成最小单位" },
+    { t: "Embedding",    d: "查表变成一串数字（向量）" },
+    { t: "注意力层 ×N",  d: "词与词互相打量，交换上下文" },
+    { t: "前馈网络",     d: "每个词独立“思考”，提炼特征" },
+    { t: "输出概率",     d: "对词表每个词打分→概率分布" },
+    { t: "采样成词",     d: "按概率挑一个词，拼回文本" },
+  ];
+  const DESCS = [
+    "一切从<b>你输入的文字</b>开始：一句话、一个问题、一段代码……",
+    "文字被切成一个个 <b>Token</b>（见第 1 课）。模型从此只和这些小块打交道。",
+    "每个 Token 通过查表变成一个 <b>Embedding 向量</b>（见第 2 课），数字才能参与计算。",
+    "这是 Transformer 的核心！多层注意力让代词找到名词、让“苹果“分辨出是水果还是公司（见第 3 课）。",
+    "每个向量再独立通过一个小网络，像“个人思考“一样把上下文信息消化成更抽象的特征。",
+    "网络输出数万个分数，经过 softmax 变成<b>概率分布</b>——每个候选词一个可能性（见第 5 课）。",
+    "按概率挑一个词输出，它就成了“下一个词”；然后这个词拼回上下文，<b>循环往复</b>，直到生成结束。",
+  ];
+
+  const pipe = $("#pipe");
+  STAGES.forEach((s, i) => {
+    const n = document.createElement("div");
+    n.className = "pipe-node";
+    n.innerHTML = `<div class="no">${String(i + 1).padStart(2, "0")}</div><div class="t">${s.t}</div><div class="d">${s.d}</div>`;
+    pipe.appendChild(n);
+  });
+
+  let step = 0, timer = null;
+  const nodes = $$("#pipe .pipe-node");
+
+  function show(){
+    nodes.forEach((n, i) => n.classList.toggle("on", i < step));
+    $("#pipeStep").textContent = `步骤 ${step} / 7`;
+    $("#pipeDesc").innerHTML = step === 0
+      ? "点击“下一步”，开始观察文字流经流水线的全过程。"
+      : DESCS[step - 1] + (step === 7 ? "<br><b>这就是“文字接龙“的完整一圈！</b>" : "");
+  }
+  function stopAuto(){ if (timer){ clearInterval(timer); timer = null; $("#pipeAuto").textContent = "▶ 自动播放"; } }
+
+  $("#pipeNext").addEventListener("click", () => { stopAuto(); step = Math.min(7, step + 1); show(); });
+  $("#pipePrev").addEventListener("click", () => { stopAuto(); step = Math.max(0, step - 1); show(); });
+  $("#pipeAuto").addEventListener("click", () => {
+    if (timer){ stopAuto(); return; }
+    if (step >= 7) step = 0;
+    $("#pipeAuto").textContent = "⏸ 暂停";
+    timer = setInterval(() => {
+      step++;
+      show();
+      if (step >= 7) stopAuto();
+    }, 1600);
+  });
+  show();
+})();
+
+/* ============================================================
+   实验 5：微型语言模型（三元语法）
+============================================================ */
+(function miniLM(){
+  // 训练语料：一段重复句式较多的小故事，方便小模型学到规律
+  const CORPUS =
+    "小明有一只小猫。小猫喜欢吃鱼。小明每天都给小猫喂鱼。早上，小明对小猫说，我们去公园吧。" +
+    "小猫跟着小明去公园。公园里有花，有草，有大树。小明在草地上跑，小猫在草地上跑。" +
+    "小明说，小猫小猫，你跑得好快。太阳出来了，天气很暖和。小明和小猫坐在树下休息。" +
+    "小鸟在树上唱歌，小猫抬头看小鸟。小明说，小猫小猫，你想抓小鸟吗。小猫喵喵叫，好像在说，是的。" +
+    "中午了，小明带着小猫回家。妈妈做好了饭，小明和小猫一起吃饭。" +
+    "下午，小明在屋里读书，小猫趴在旁边睡觉。晚上，小明对小猫说，晚安，明天我们再去公园。" +
+    "小猫乖乖地睡了。第二天，小明又带着小猫去公园。公园里的花开得很美，小猫在花园里追蝴蝶。" +
+    "小明说，小猫小猫，你开心吗。小猫喵喵叫，好像在说，我很开心。" +
+    "天黑了，小明带着小猫回家。小猫累了，趴在地板上睡觉。小明给小猫盖上小被子。" +
+    "这就是小明和小猫快乐的一天。";
+
+  // 训练：统计三元语法（前两个字 → 下一个字的出现次数）
+  const tri = new Map(), chars = new Map();
+  for (let i = 0; i < CORPUS.length; i++){
+    const c = CORPUS[i];
+    chars.set(c, (chars.get(c) || 0) + 1);
+    if (i < 2) continue;
+    const k = CORPUS[i - 2] + CORPUS[i - 1];
+    if (!tri.has(k)) tri.set(k, new Map());
+    const m = tri.get(k);
+    m.set(c, (m.get(c) || 0) + 1);
+  }
+
+  function predict(ctx){
+    const a = ctx[ctx.length - 2] || "", b = ctx[ctx.length - 1] || "";
+    const m = tri.get(a + b);
+    const probs = new Map();
+    if (m){
+      for (const [c, n] of m) probs.set(c, n + 0.2);   // 平滑
+    } else {
+      for (const [c, n] of chars) probs.set(c, n / CORPUS.length);  // 回退：全局频率
+    }
+    const sum = [...probs.values()].reduce((x, y) => x + y, 0);
+    return [...probs.entries()].map(([c, p]) => [c, p / sum])
+      .sort((x, y) => y[1] - x[1]).slice(0, 5);
+  }
+
+  function sampleNext(ctx){
+    const cands = predict(ctx).map(([c, p]) => [c, Math.pow(p, 1 / .8)]);  // 温度采样
+    const sum = cands.reduce((s, c) => s + c[1], 0);
+    let r = Math.random() * sum;
+    for (const [c, w] of cands){ r -= w; if (r <= 0) return c; }
+    return cands[0][0];
+  }
+
+  const barsBox = $("#predBars"), genOut = $("#genOut");
+
+  $("#predictBtn").addEventListener("click", () => {
+    const ctx = $("#ctxInput").value.trim();
+    if (!ctx){ barsBox.innerHTML = '<p class="hint">先输入几个字吧。</p>'; return; }
+    const top = predict(ctx);
+    barsBox.innerHTML = "";
+    top.forEach(([c, p], i) => {
+      const row = document.createElement("div");
+      row.className = "bar-row";
+      row.innerHTML =
+        `<div class="bar-label">${c === " " ? "␣" : c}</div>` +
+        `<div class="bar-track"><div class="bar-fill"></div></div>` +
+        `<div class="bar-pct">${(p * 100).toFixed(1)}%</div>`;
+      barsBox.appendChild(row);
+      setTimeout(() => row.querySelector(".bar-fill").style.width = (p * 100) + "%", 60 * i + 30);
+    });
+    genOut.innerHTML = '<span class="hint">想看到它继续往下写？点“让它自由续写 80 字”。</span>';
+  });
+
+  let genTimer = null;
+  $("#genBtn").addEventListener("click", () => {
+    if (genTimer) return;
+    let ctx = $("#ctxInput").value.trim() || "小明";
+    genOut.innerHTML = '<span style="color:var(--muted)">' + ctx + '</span><span class="new"></span><span class="caret"></span>';
+    const target = document.querySelector("#genOut .new");
+    const caret = genOut.querySelector(".caret");
+    let n = 0;
+    genTimer = setInterval(() => {
+      const c = sampleNext(ctx);
+      ctx += c; n++;
+      target.textContent += c;
+      if (n >= 80 || (c === "。" && n > 30)){
+        clearInterval(genTimer); genTimer = null;
+        if (caret) caret.remove();
+      }
+    }, 55);
+  });
+})();
+
+/* ============================================================
+   实验 6：训练（梯度下降可视化）
+============================================================ */
+(function training(){
+  const cv = $("#trainCanvas");
+  let geo = setupCanvas(cv, 300);
+  let w = -2.5, steps = 0, trail = [], timer = null;
+  const LR = 0.18;
+  const loss = w2 => Math.pow(w2 - 3, 2) + 0.5;   // 损失函数：(w-3)^2 + 0.5
+
+  const px = v => 46 + (v + 5) / 11 * (geo.w - 76);
+  const py = l => geo.h - 30 - (l / 34) * (geo.h - 56);
+
+  function draw(){
+    const { ctx, w: W, h: H } = geo;
+    ctx.clearRect(0, 0, W, H);
+
+    // 坐标轴
+    ctx.strokeStyle = "rgba(148,163,255,.25)";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(40, 14); ctx.lineTo(40, H - 28); ctx.lineTo(W - 24, H - 28); ctx.stroke();
+    ctx.fillStyle = "rgba(152,163,200,.9)";
+    ctx.font = "12px sans-serif";
+    ctx.fillText("损失 Loss", 42, 26);
+    ctx.fillText("参数 w", W - 74, H - 36);
+    for (let v = -4; v <= 6; v += 2){
+      ctx.fillStyle = "rgba(152,163,200,.55)";
+      ctx.fillText(String(v), px(v) - 4, H - 12);
+    }
+
+    // 损失曲线
+    ctx.strokeStyle = "rgba(124,140,255,.8)";
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    for (let v = -4.6; v <= 6.4; v += .08){
+      const x = px(v), y = py(loss(v));
+      v === -4.6 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // 谷底标记
+    ctx.fillStyle = "rgba(79,209,197,.9)";
+    ctx.beginPath(); ctx.arc(px(3), py(loss(3)), 5, 0, 7); ctx.fill();
+    ctx.fillText("最低点 = 最优参数", px(3) - 44, py(loss(3)) + 20);
+
+    // 滚动轨迹
+    for (let i = 1; i < trail.length; i++){
+      ctx.strokeStyle = "rgba(255,143,179,.6)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(px(trail[i - 1]), py(loss(trail[i - 1])));
+      ctx.lineTo(px(trail[i]), py(loss(trail[i])));
+      ctx.stroke();
+    }
+
+    // 小球
+    const bx = px(w), by = py(loss(w));
+    ctx.shadowColor = "#ff8fb3"; ctx.shadowBlur = 16;
+    ctx.fillStyle = "#ff8fb3";
+    ctx.beginPath(); ctx.arc(bx, by, 9, 0, 7); ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+
+  function readout(){
+    $("#roStep").textContent = steps;
+    $("#roW").textContent = w.toFixed(2);
+    $("#roLoss").textContent = loss(w).toFixed(2);
+  }
+
+  function stepOnce(){
+    trail.push(w);
+    w = w - LR * 2 * (w - 3);   // 梯度下降
+    steps++;
+    draw(); readout();
+  }
+
+  function stop(){ if (timer){ clearInterval(timer); timer = null; $("#trainAutoBtn").textContent = "▶ 自动训练"; } }
+
+  $("#trainStepBtn").addEventListener("click", () => { stop(); stepOnce(); });
+  $("#trainAutoBtn").addEventListener("click", () => {
+    if (timer){ stop(); return; }
+    $("#trainAutoBtn").textContent = "⏸ 暂停";
+    timer = setInterval(stepOnce, 260);
+  });
+  $("#trainResetBtn").addEventListener("click", () => {
+    stop(); w = -2.5; steps = 0; trail = []; draw(); readout();
+  });
+
+  window.addEventListener("resize", () => { geo = setupCanvas(cv, 300); draw(); });
+  draw(); readout();
+})();
+
+/* ============================================================
+   实验 7：小测验
+============================================================ */
+(function quiz(){
+  const QUIZ = [
+    {
+      q: "从本质上说，大语言模型做的事情最接近：",
+      opts: ["在数据库里搜索现成的答案", "根据上文，逐个预测下一个最可能出现的词", "像人一样先真正理解世界，再给出回答"],
+      ans: 1,
+      exp: "大模型是“超级接龙选手”：它根据上下文计算每个候选词的概率，再从中挑选。答案并非预先存好的。"
+    },
+    {
+      q: "Token 指的是什么？",
+      opts: ["大模型处理文本的最小单位", "一种特殊的标点符号", "神经网络里的神经元"],
+      ans: 0,
+      exp: "文本先被切成 Token（一个汉字、词片段或单词），模型的一切计算都建立在这些小块上。"
+    },
+    {
+      q: "注意力机制（Attention）主要解决什么问题？",
+      opts: ["让模型训练得更快", "让每个词能“看向“上下文中的其他词，理解它们的关系", "帮模型节省内存"],
+      ans: 1,
+      exp: "比如“它想玩“中的“它”，通过注意力回指到“小猫”，模型才能明白指代的是谁。"
+    },
+    {
+      q: "训练模型时，损失（Loss）通常会怎么变化？",
+      opts: ["一直上升", "始终保持不变", "总体不断下降（中间有小幅波动）"],
+      ans: 2,
+      exp: "训练就是反复“猜 → 错 → 改“的过程：预测越来越准，损失总体越来越小，就像小球滚向谷底。"
+    },
+  ];
+
+  const box = $("#quizBox");
+  let answered = 0, correct = 0;
+
+  QUIZ.forEach((item, qi) => {
+    const card = document.createElement("div");
+    card.className = "card quiz-card";
+    card.innerHTML = `<div class="quiz-q">Q${qi + 1}. ${item.q}</div>`;
+    const exp = document.createElement("div");
+    exp.className = "quiz-exp";
+
+    item.opts.forEach((opt, oi) => {
+      const b = document.createElement("button");
+      b.className = "opt";
+      b.textContent = opt;
+      b.addEventListener("click", () => {
+        const opts = card.querySelectorAll(".opt");
+        if (opts[0].disabled) return;
+        opts.forEach((o, k) => {
+          o.disabled = true;
+          if (k === item.ans) o.classList.add("correct");
+        });
+        if (oi === item.ans){ correct++; }
+        else b.classList.add("wrong");
+        exp.innerHTML = "解析：" + item.exp;
+        exp.classList.add("show");
+        answered++;
+        if (answered === QUIZ.length){
+          const sb = $("#scoreBox");
+          sb.style.display = "block";
+          const msg = correct === 4 ? "满分！你已经理解大模型的核心原理了！"
+                    : correct >= 2 ? "不错！回去看看做错的实验，你会更清楚。"
+                    : "没关系——回到上面的实验再玩一遍，会有新收获。";
+          sb.innerHTML = `得分：<span class="grad">${correct} / 4</span><br><span style="font-size:15px;color:var(--muted);font-weight:400">${msg}</span>`;
+          sb.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+      card.appendChild(b);
+    });
+    card.appendChild(exp);
+    box.appendChild(card);
+  });
+})();
+</script>
+</body>
+</html>
