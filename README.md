@@ -7,7 +7,7 @@
 ![依赖](https://img.shields.io/badge/依赖-零-green)
 [![Pages](https://img.shields.io/badge/Pages-已上线-brightgreen)](https://will-ww.github.io/llm-interactive-class/)
 
-**在线体验：https://will-ww.github.io/llm-interactive-class/**（GitHub Pages 托管）
+在线体验：https://will-ww.github.io/llm-interactive-class/（GitHub Pages 托管）
 
 ## 项目简介
 
