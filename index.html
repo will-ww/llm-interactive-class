@@ -38,7 +38,7 @@
   /* ---------- 导航 ---------- */
   nav{
     position:fixed;top:0;left:0;right:0;z-index:50;
-    display:flex;align-items:center;gap:18px;
+    display:flex;align-items:center;gap:16px;
     padding:12px 22px;
     background:rgba(10,15,30,.72);
     backdrop-filter:blur(12px);
@@ -50,7 +50,7 @@
   .nav-links::-webkit-scrollbar{display:none}
   .nav-links a{
     color:var(--muted);text-decoration:none;font-size:13px;
-    padding:6px 11px;border-radius:999px;white-space:nowrap;transition:.2s;
+    padding:6px 10px;border-radius:999px;white-space:nowrap;transition:.2s;
   }
   .nav-links a:hover{color:var(--text);background:rgba(148,163,255,.1)}
   .nav-links a.active{color:#fff;background:linear-gradient(90deg,var(--accent),#5a6cf0)}
@@ -59,15 +59,16 @@
   main{max-width:980px;margin:0 auto;padding:0 20px}
   section{padding:90px 0 30px;scroll-margin-top:70px}
   .kicker{color:var(--accent2);font-size:13px;letter-spacing:3px;font-weight:700;margin-bottom:8px}
-  h1{font-size:clamp(34px,6vw,58px);line-height:1.2;font-weight:900}
-  h2{font-size:clamp(24px,4vw,34px);margin-bottom:14px;font-weight:800}
+  h1{font-size:clamp(32px,6vw,56px);line-height:1.2;font-weight:900}
+  h2{font-size:clamp(23px,4vw,32px);margin-bottom:14px;font-weight:800}
   h2 .num{
     display:inline-block;font-size:.55em;vertical-align:middle;margin-right:10px;
     background:linear-gradient(135deg,var(--accent),var(--accent2));
     color:#0a0f1e;border-radius:10px;padding:3px 10px;font-weight:900;
   }
   .grad{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
-  p.lead{color:var(--muted);max-width:720px;margin:14px 0}
+  p.lead{color:var(--muted);max-width:740px;margin:14px 0}
+  p.lead b{color:var(--text)}
   .card{
     background:var(--card);border:1px solid var(--border);
     border-radius:16px;padding:22px;margin:22px 0;
@@ -75,7 +76,7 @@
   .card h3{font-size:17px;margin-bottom:12px;color:#cdd5ff}
   .hint{color:var(--muted);font-size:13px}
   .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-  .divider{height:1px;background:var(--border);margin:40px 0}
+  .divider{height:1px;background:var(--border);margin:34px 0}
 
   /* ---------- 按钮 ---------- */
   .btn{
@@ -96,14 +97,14 @@
   .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
 
   /* ---------- 首页 ---------- */
-  #home{padding-top:150px;min-height:88vh}
+  #home{padding-top:140px}
   .hero-badge{
     display:inline-block;font-size:13px;color:var(--accent2);
     border:1px solid rgba(79,209,197,.4);border-radius:999px;
     padding:5px 16px;margin-bottom:22px;background:rgba(79,209,197,.07);
   }
   .type-line{
-    margin-top:34px;font-family:"Cascadia Code",Consolas,monospace;
+    margin-top:30px;font-family:"Cascadia Code",Consolas,monospace;
     background:#0d1330;border:1px solid var(--border);border-radius:12px;
     padding:16px 20px;font-size:15px;color:var(--muted);min-height:58px;
   }
@@ -111,7 +112,37 @@
   .type-line .pred{color:var(--accent2);font-weight:700}
   .caret{display:inline-block;width:9px;height:1.1em;background:var(--accent2);vertical-align:-2px;animation:blink 1s steps(1) infinite}
   @keyframes blink{50%{opacity:0}}
-  .hero-cta{margin-top:30px}
+  .hero-cta{margin-top:26px}
+
+  /* ---------- 学习路径图 ---------- */
+  .roadmap-title{font-size:14px;color:var(--muted);margin-top:44px;letter-spacing:2px;font-weight:700}
+  .roadmap{display:flex;align-items:center;overflow-x:auto;padding:16px 2px 8px}
+  .rm-stop{flex:0 0 auto;display:flex;align-items:center}
+  .rm-stop a{
+    display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;
+    padding:10px 14px;border:1px solid var(--border);border-radius:14px;
+    background:var(--card);transition:.2s;min-width:84px;text-align:center;
+  }
+  .rm-stop a:hover{transform:translateY(-3px);border-color:var(--accent)}
+  .rm-stop .n{font-size:11px;color:var(--accent2);font-weight:800;letter-spacing:1px}
+  .rm-stop .t{font-size:13px;color:var(--text);font-weight:700}
+  .rm-arrow{flex:0 0 auto;color:var(--muted);padding:0 7px;font-size:15px}
+
+  /* ---------- 每课收尾 ---------- */
+  .sum-box{background:rgba(79,209,197,.07);border:1px solid rgba(79,209,197,.3);border-radius:14px;padding:16px 20px;margin-top:22px}
+  .sum-box h4{color:var(--accent2);font-size:14px;margin-bottom:8px;letter-spacing:1px}
+  .sum-box ul{margin-left:18px;font-size:14.5px;color:#d5ecff}
+  .sum-box li{margin:3px 0}
+  .sum-box.warn{background:rgba(255,107,129,.06);border-color:rgba(255,107,129,.3)}
+  .sum-box.warn h4{color:var(--bad)}
+  .sum-box.warn ul{color:#ffd9de}
+  .next-strip{
+    display:block;margin-top:16px;text-decoration:none;padding:13px 18px;
+    border-radius:12px;background:linear-gradient(90deg,rgba(124,140,255,.14),rgba(79,209,197,.1));
+    border:1px solid rgba(124,140,255,.3);color:var(--text);font-weight:700;font-size:14.5px;transition:.2s;
+  }
+  .next-strip:hover{border-color:var(--accent);transform:translateX(4px)}
+  .next-strip span{color:var(--accent2)}
 
   /* ---------- Token ---------- */
   input[type=text],textarea{
@@ -156,6 +187,64 @@
     min-height:52px;
   }
 
+  /* ---------- 概率条 ---------- */
+  .bar-row{display:flex;align-items:center;gap:12px;margin:9px 0}
+  .bar-label{width:64px;text-align:center;font-weight:800;font-size:16px;font-family:Consolas,monospace}
+  .bar-track{flex:1;height:12px;background:rgba(255,255,255,.07);border-radius:999px;overflow:hidden}
+  .bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:999px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+  .bar-pct{width:58px;font-size:13px;color:var(--muted);font-family:Consolas,monospace}
+  .gen-out{
+    margin-top:16px;padding:14px 16px;border-radius:12px;min-height:56px;
+    background:#0d1330;border:1px dashed var(--border);font-size:15px;line-height:2;
+  }
+  .gen-out .new{color:var(--accent2);font-weight:700}
+  .story-box{min-height:56px;padding:14px 16px;border-radius:12px;background:#0d1330;border:1px dashed var(--border);font-size:15.5px;line-height:2.1;margin-top:14px;word-break:break-all}
+  .tu{color:#fff;font-weight:700}
+  .tai{color:var(--accent2);font-weight:700}
+
+  /* ---------- 教学游戏 ---------- */
+  .teach-ctx{font-size:24px;font-weight:800;text-align:center;padding:18px 10px;letter-spacing:2px;font-family:Consolas,monospace}
+  .teach-ctx .blank{color:var(--accent2);border-bottom:3px solid var(--accent2);padding:0 10px}
+  .ai-say{font-size:14.5px;color:var(--muted);text-align:center;margin:4px 0 2px}
+  .ai-say b{color:var(--accent2)}
+  .cand-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:10px;margin:14px 0}
+  .cand{
+    padding:13px 8px;font-size:22px;font-weight:800;text-align:center;border-radius:12px;
+    border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);
+    cursor:pointer;font-family:inherit;transition:.15s;
+  }
+  .cand:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .cand.right{background:rgba(46,213,115,.18);border-color:var(--good)}
+  .cand.wrongpick{background:rgba(255,107,129,.15);border-color:var(--bad)}
+  .teach-readouts{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px}
+  details.advance{margin-top:16px;border:1px solid var(--border);border-radius:12px;padding:12px 16px;background:rgba(148,163,255,.04)}
+  details.advance summary{cursor:pointer;font-weight:700;color:var(--accent2);font-size:14px}
+  details.advance p{font-size:14px;color:var(--muted);margin-top:10px}
+
+  /* ---------- 规模 ---------- */
+  .seg-row{display:flex;gap:10px;flex-wrap:wrap}
+  .seg{
+    padding:10px 18px;border-radius:12px;border:1px solid var(--border);
+    background:rgba(255,255,255,.03);color:var(--muted);cursor:pointer;
+    font-family:inherit;font-weight:700;font-size:14px;transition:.2s;
+  }
+  .seg small{display:block;font-weight:400;font-size:12px}
+  .seg.on{color:#fff;border-color:var(--accent);background:rgba(124,140,255,.14)}
+  .badge-row{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+  .badge{
+    padding:6px 14px;border-radius:999px;font-size:13px;border:1px solid var(--border);
+    color:var(--muted);opacity:.4;transition:.4s;
+  }
+  .badge.on{opacity:1;color:#0a0f1e;background:linear-gradient(90deg,var(--accent),var(--accent2));font-weight:800;border-color:transparent}
+  .bubble{
+    margin-top:14px;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.05);
+    border:1px solid var(--border);font-size:14.5px;position:relative;
+  }
+  .bubble::before{
+    content:"小模";position:absolute;top:-11px;left:16px;background:var(--bg2);padding:0 8px;
+    font-size:12px;color:var(--accent2);border:1px solid rgba(79,209,197,.4);border-radius:999px;
+  }
+
   /* ---------- 流水线 ---------- */
   .pipe{display:flex;gap:12px;overflow-x:auto;padding:16px 4px}
   .pipe-node{
@@ -176,33 +265,34 @@
   .pipe-ctrl{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px}
   .pipe-desc{
     margin-top:16px;padding:16px 18px;border-radius:12px;min-height:76px;
-    background:rgba(124,140,255,.08);border:1px solid rgba(124,140,255,.25);
+    background:rgba(124,140,255,.08);border:1px solid rgba(124,140,255,.25);font-size:14.5px;
   }
   .pipe-desc b{color:var(--accent2)}
-  #pipeStep{font-weight:800;color:var(--accent2)}
+  .pipe-eg{margin-top:12px;font-size:14px;color:var(--muted);font-family:Consolas,monospace}
 
-  /* ---------- 预测 ---------- */
-  .bar-row{display:flex;align-items:center;gap:12px;margin:9px 0}
-  .bar-label{width:64px;text-align:center;font-weight:800;font-size:16px;font-family:Consolas,monospace}
-  .bar-track{flex:1;height:12px;background:rgba(255,255,255,.07);border-radius:999px;overflow:hidden}
-  .bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:999px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
-  .bar-pct{width:58px;font-size:13px;color:var(--muted);font-family:Consolas,monospace}
-  .gen-out{
-    margin-top:16px;padding:14px 16px;border-radius:12px;min-height:56px;
-    background:#0d1330;border:1px dashed var(--border);font-size:15px;line-height:2;
-  }
-  .gen-out .new{color:var(--accent2);font-weight:700}
+  /* ---------- 温度 ---------- */
+  input[type=range]{width:100%;accent-color:var(--accent);margin:12px 0 4px}
+  .temp-read{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px}
+  .temp-val{font-family:Consolas,monospace;color:var(--accent2);font-weight:800;font-size:20px}
+  .temp-desc{font-size:13px;color:var(--muted)}
 
-  /* ---------- 训练 ---------- */
-  .train-readouts{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px}
-  .readout{
-    flex:1;min-width:130px;background:rgba(148,163,255,.07);border:1px solid var(--border);
-    border-radius:12px;padding:10px 16px;text-align:center;
-  }
-  .readout .v{font-size:22px;font-weight:900;color:var(--accent2);font-family:Consolas,monospace}
-  .readout .k{font-size:12px;color:var(--muted)}
+  /* ---------- 找茬 ---------- */
+  .spot-card{border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin:14px 0;background:rgba(255,255,255,.03)}
+  .spot-q{font-weight:800;margin-bottom:10px;font-size:15px}
+  .spot-text{font-size:15px;line-height:2.2;color:#dbe2ff}
+  .err-target{cursor:pointer;padding:2px 4px;border-radius:6px;border-bottom:2px dashed rgba(148,163,255,.4);transition:.2s}
+  .err-target:hover{background:rgba(148,163,255,.12)}
+  .spot-card.solved .err-target{background:rgba(255,107,129,.22);border-bottom:2px solid var(--bad)}
+  .spot-msg{font-size:13.5px;min-height:22px;margin-top:8px;color:var(--muted)}
+  .spot-msg.ok{color:var(--good)}
+  .why{display:none;margin-top:12px;padding:12px 16px;border-radius:10px;background:rgba(79,209,197,.07);border:1px solid rgba(79,209,197,.25);font-size:14px;color:#cfe9ff}
+  .why.show{display:block;animation:pop .3s ease}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+  .shake{animation:shake .25s ease}
 
   /* ---------- 测验 ---------- */
+  .qp-track{height:8px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden;margin:10px 0 24px}
+  .qp-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .4s}
   .quiz-card{margin:18px 0}
   .quiz-q{font-weight:800;font-size:16px;margin-bottom:10px}
   .opt{
@@ -234,26 +324,33 @@
     text-align:center;color:var(--muted);font-size:13px;
     padding:60px 20px 40px;border-top:1px solid var(--border);margin-top:60px;
   }
-  footer .sum{max-width:680px;margin:0 auto 14px;color:var(--text);font-size:15px}
+  footer .sum{max-width:680px;margin:0 auto 16px;color:var(--text);font-size:15px}
+  footer .links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+  footer .links a{color:var(--accent2);text-decoration:none}
+  footer .links a:hover{text-decoration:underline}
   @media (max-width:640px){
     nav{gap:10px;padding:10px 14px}
     .brand{font-size:14px}
+    .teach-ctx{font-size:19px}
   }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="brand"><b>◆ 大模型原理</b> · 交互课堂</div>
+  <div class="brand"><b>◆ 大模型原理</b> · 十站交互课堂</div>
   <div class="nav-links">
     <a href="#home" class="active">首页</a>
-    <a href="#tokens">Token</a>
-    <a href="#embedding">Embedding</a>
-    <a href="#attention">注意力</a>
-    <a href="#transformer">Transformer</a>
-    <a href="#predict">预测实验</a>
-    <a href="#training">训练</a>
-    <a href="#quiz">测验</a>
+    <a href="#l01">01 认字</a>
+    <a href="#l02">02 坐标</a>
+    <a href="#l03">03 注意</a>
+    <a href="#l04">04 接龙</a>
+    <a href="#l05">05 教学</a>
+    <a href="#l06">06 规模</a>
+    <a href="#l07">07 串讲</a>
+    <a href="#l08">08 温度</a>
+    <a href="#l09">09 短板</a>
+    <a href="#l10">10 测验</a>
   </div>
 </nav>
 
@@ -261,28 +358,42 @@
 
 <!-- ================= 首页 ================= -->
 <section id="home">
-  <span class="hero-badge">零基础 · 交互式 · 无需安装任何东西</span>
+  <span class="hero-badge">零基础 · 高中生也能懂 · 十站旅程 · 无需安装</span>
   <h1>大语言模型<br><span class="grad">到底是怎么工作的？</span></h1>
   <p class="lead">
-    大模型看似神秘，本质却可以用一句话概括：<b style="color:var(--text)">它是一台超级"文字接龙"机器</b>——
-    根据上文，不断预测下一个最可能出现的词。本课堂用 6 个可以亲手操作的实验，
-    带你一步步看清它背后的原理。
+    不讲公式、不敲代码。接下来是一场十站的旅程，每站约 3 分钟：你会亲手<b>教一个小 AI 认字</b>、
+    看它<b>玩文字接龙</b>、当一回<b>老师纠正它的错误</b>，最后明白它为什么有时惊艳、有时翻车。
+    走完这十站，你就真正懂了。
   </p>
   <div class="type-line" id="typeLine"><span class="caret"></span></div>
   <div class="row hero-cta">
-    <a class="btn" href="#tokens">开始第一课</a>
-    <a class="btn ghost" href="#predict">直接动手玩</a>
+    <a class="btn" href="#l01">开始第一站</a>
+    <a class="btn ghost" href="#l10">直接测一测</a>
+  </div>
+
+  <div class="roadmap-title">学习路径 · 十站</div>
+  <div class="roadmap">
+    <div class="rm-stop"><a href="#l01"><span class="n">第1站</span><span class="t">认字</span></a></div><span class="rm-arrow">→</span>
+    <div class="rm-stop"><a href="#l02"><span class="n">第2站</span><span class="t">坐标</span></a></div><span class="rm-arrow">→</span>
+    <div class="rm-stop"><a href="#l03"><span class="n">第3站</span><span class="t">上下文</span></a></div><span class="rm-arrow">→</span>
+    <div class="rm-stop"><a href="#l04"><span class="n">第4站</span><span class="t">接龙</span></a></div><span class="rm-arrow">→</span>
+    <div class="rm-stop"><a href="#l05"><span class="n">第5站</span><span class="t">教AI</span></a></div><span class="rm-arrow">→</span>
+    <div class="rm-stop"><a href="#l06"><span class="n">第6站</span><span class="t">规模</span></a></div><span class="rm-arrow">→</span>
+    <div class="rm-stop"><a href="#l07"><span class="n">第7站</span><span class="t">串讲</span></a></div><span class="rm-arrow">→</span>
+    <div class="rm-stop"><a href="#l08"><span class="n">第8站</span><span class="t">性格</span></a></div><span class="rm-arrow">→</span>
+    <div class="rm-stop"><a href="#l09"><span class="n">第9站</span><span class="t">短板</span></a></div><span class="rm-arrow">→</span>
+    <div class="rm-stop"><a href="#l10"><span class="n">第10站</span><span class="t">毕业</span></a></div>
   </div>
 </section>
 
-<!-- ================= 01 Token ================= -->
-<section id="tokens" class="reveal">
-  <div class="kicker">LESSON 01</div>
-  <h2><span class="num">01</span>Token：大模型的"字母表"</h2>
+<!-- ================= 第1站 Token ================= -->
+<section id="l01" class="reveal">
+  <div class="kicker">第 1 站 · LESSON 01</div>
+  <h2><span class="num">01</span>Token：先让 AI"认字"</h2>
   <p class="lead">
-    模型读不懂整段文字，它看到的全是<b>最小处理单位 —— Token</b>。
-    一个 Token 可能是一个汉字、一个英文单词，或单词的一个片段。
-    模型的一切计算，都建立在这些小块之上。
+    想象你要教一个没见过文字的朋友读书。第一步不是讲语法，而是先让他认识<b>最小的文字单位</b>。
+    AI 也一样：它读不了整段文章，它看到的全是 <b>Token</b>——可能是一个汉字、一个英文单词，
+    或单词的一个小片段。AI 之后的一切本领，都建立在这些小块上。
   </p>
   <div class="card">
     <h3>动手试试：输入文字，实时看它被切成多少个 Token</h3>
@@ -298,62 +409,210 @@
       <span class="stat-pill">字符数 <b id="charCount">0</b></span>
     </div>
     <p class="hint" style="margin-top:14px">
-      观察：一个汉字通常就是 1 个 Token（颜色块）；一个英文单词往往会被切成 2~3 个片段。
-      这就是为什么处理英文时"按词计费"，而处理中文时"按字计费"。
+      发现了吗：一个汉字通常就是 1 个 Token；一个英文单词往往被切成 2~3 个片段。
+      这就是为什么处理中文"按字计费"，英文"按词计费"。
     </p>
   </div>
+  <div class="sum-box">
+    <h4>本课收获</h4>
+    <ul>
+      <li>文字先被切成 Token，AI 才开始工作</li>
+      <li>1 个汉字 ≈ 1 个 Token；英文单词常被拆成几段</li>
+      <li>Token 是 AI 的"字母表"，后面每一站都会用到它</li>
+    </ul>
+  </div>
+  <a class="next-strip" href="#l02">下一站 <span>02 · 每个词都有一张"坐标名片"</span> →</a>
 </section>
 
-<!-- ================= 02 Embedding ================= -->
-<section id="embedding" class="reveal">
-  <div class="kicker">LESSON 02</div>
-  <h2><span class="num">02</span>Embedding：给每个词一个"坐标"</h2>
+<!-- ================= 第2站 Embedding ================= -->
+<section id="l02" class="reveal">
+  <div class="kicker">第 2 站 · LESSON 02</div>
+  <h2><span class="num">02</span>Embedding：给每个词一张"坐标名片"</h2>
   <p class="lead">
-    计算机只认识数字。每个 Token 都会被查表转换成一长串数字（向量），
-    这叫 <b>Embedding（嵌入）</b>。语义相近的词，坐标也相近——
-    <b style="color:var(--accent2)">把鼠标悬停在图上任意词上</b>，看看谁离它最近。
+    上站 AI 认了字，但计算机只懂数字——"苹果"两个字它根本没法算。
+    解决办法很妙：<b>给每个词编一个坐标</b>。意思相近的词，坐标就挨得近。
+    把鼠标悬停在图里的词上，看看谁和谁是邻居。
   </p>
   <div class="card">
     <div class="emb-wrap">
       <canvas id="embCanvas" height="440"></canvas>
-      <div class="emb-caption" id="embCaption">悬停某个词，看看它的"邻居"是谁。</div>
+      <div class="emb-caption" id="embCaption">悬停任意一个词，看看它的"邻居"是谁。</div>
       <div class="legend" id="embLegend"></div>
     </div>
     <div class="divider"></div>
-    <h3>著名实验：向量也能做算术</h3>
+    <h3>名场面：坐标还能做算术</h3>
     <p class="hint" style="margin-bottom:12px">
-      如果 Embedding 真的编码了语义，那么"国王 − 男人 + 女人"的结果，应该落在"王后"附近。点按钮看动画：
+      如果坐标真的表达了词义，那么"国王 − 男人 + 女人"的结果应该落在"王后"附近。点按钮看动画：
     </p>
     <button class="btn" id="analogyBtn">演示：国王 − 男人 + 女人 ≈ ？</button>
     <div class="emb-caption" id="analogyResult"></div>
   </div>
+  <div class="sum-box">
+    <h4>本课收获</h4>
+    <ul>
+      <li>每个词都被映射成一串数字（向量），AI 才能"计算"语言</li>
+      <li>语义相近 → 坐标相近：猫挨着狗，苹果挨着香蕉</li>
+      <li>"国王 − 男人 + 女人 ≈ 王后"说明坐标里真的编码了语义关系</li>
+    </ul>
+  </div>
+  <a class="next-strip" href="#l03">下一站 <span>03 · 词语之间会"互相打量"</span> →</a>
 </section>
 
-<!-- ================= 03 注意力 ================= -->
-<section id="attention" class="reveal">
-  <div class="kicker">LESSON 03</div>
-  <h2><span class="num">03</span>注意力机制：词语之间的"互相打量"</h2>
+<!-- ================= 第3站 注意力 ================= -->
+<section id="l03" class="reveal">
+  <div class="kicker">第 3 站 · LESSON 03</div>
+  <h2><span class="num">03</span>注意力：词语之间互相"打量"</h2>
   <p class="lead">
-    同一个词在不同语境中意思完全不同（想想"苹果"是水果还是公司？）。
-    模型靠 <b>Attention（注意力）</b> 让每个词去"打量"上下文中的其他词，
-    颜色越深，表示关注得越多。<b style="color:var(--accent2)">点击句子中的任意词试试。</b>
+    有了坐标，AI 认识每个词了。但问题来了：<b>词的意思取决于上下文</b>。
+    "苹果落在地上，因为它熟了"——"它"指的是谁？人读句子会回头找答案，AI 也一样，
+    靠的就是 <b>注意力（Attention）</b>：每个词都会"打量"周围的词。点击句子里的词试试。
   </p>
   <div class="card">
     <div class="row" style="margin-bottom:6px" id="attSents"></div>
     <div class="att-tokens" id="attTokens"></div>
-    <p class="hint">↑ 点击任意词语，观察它"回望"了谁（颜色越深 = 注意力权重越大）</p>
-    <div class="att-note" id="attNote">先点击一个词语，看看它的注意力都分配给了谁。</div>
+    <p class="hint">↑ 点击任意词语，观察它"回望"了谁（颜色越深 = 注意力越多）</p>
+    <div class="att-note" id="attNote">先点击一个词语，看看它的注意力都分给了谁。</div>
   </div>
+  <div class="sum-box">
+    <h4>本课收获</h4>
+    <ul>
+      <li>注意力让 AI 弄清"它""这""那里"到底指什么</li>
+      <li>颜色深浅 = 注意力权重，是模型"思考过程"的一瞥</li>
+      <li>歧义句连 AI 都会犹豫——语言理解本来就难</li>
+    </ul>
+  </div>
+  <a class="next-strip" href="#l04">下一站 <span>04 · 见证 AI 的本职工作：文字接龙</span> →</a>
 </section>
 
-<!-- ================= 04 Transformer ================= -->
-<section id="transformer" class="reveal">
-  <div class="kicker">LESSON 04</div>
-  <h2><span class="num">04</span>Transformer：一条流水生产线</h2>
+<!-- ================= 第4站 接龙 ================= -->
+<section id="l04" class="reveal">
+  <div class="kicker">第 4 站 · LESSON 04</div>
+  <h2><span class="num">04</span>文字接龙：AI 的本职工作</h2>
   <p class="lead">
-    把前面所有零件组装起来，就是著名的 <b>Transformer</b> 架构——
-    如今几乎所有大模型（GPT、Claude、Gemini……）都建立在它之上。
-    点"下一步"，看一段文字是如何一步步变成下一个词的。
+    前三站凑齐了装备：会认字、懂词义、看上下文。现在揭晓 AI 每天都在做的事——
+    <b>文字接龙</b>。给它一段上文，它就算出"下一个字最有可能是什么"。
+    GPT 每秒都在重复这个小动作，仅此而已。
+  </p>
+  <div class="card">
+    <h3>实验 A：看看它的"心理活动"（Top-5 候选概率）</h3>
+    <textarea id="ctxInput" rows="2" maxlength="40">小明有一只小猫</textarea>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" id="predictBtn">预测下一个字</button>
+      <button class="btn ghost" id="genBtn">自动续写 80 字</button>
+    </div>
+    <div style="margin-top:18px" id="predBars"></div>
+    <div class="gen-out" id="genOut"><span class="hint">续写结果会出现在这里……</span></div>
+    <p class="hint" style="margin-top:14px">
+      注意：它给出的不是"答案"，而是一堆<b>概率</b>——这堆概率就是它的"心理活动"。
+      真正的 GPT 考虑的不是 5 个候选，而是 5 万多个词。
+    </p>
+  </div>
+  <div class="card">
+    <h3>实验 B：和 AI 玩接龙（你写一个字，它接一个字）</h3>
+    <div class="row">
+      <input type="text" id="soloInput" maxlength="4" value="春天" style="flex:1;min-width:140px">
+      <button class="btn" id="soloGo">我写好了，AI 接！</button>
+      <button class="btn ghost" id="soloClear">重来</button>
+    </div>
+    <div class="story-box" id="soloStory"><span class="hint">你们合写的故事会出现在这里……</span></div>
+  </div>
+  <div class="sum-box">
+    <h4>本课收获</h4>
+    <ul>
+      <li>大模型不是查数据库找答案，而是按概率"接龙"</li>
+      <li>所谓"会写作"，就是一万次"预测下一个词"串起来的</li>
+      <li>问题来了：它是怎么学会接龙的？——下一站，你当老师</li>
+    </ul>
+  </div>
+  <a class="next-strip" href="#l05">下一站 <span>05 · 你来当老师，教 AI 学接龙</span> →</a>
+</section>
+
+<!-- ================= 第5站 教AI ================= -->
+<section id="l05" class="reveal">
+  <div class="kicker">第 5 站 · LESSON 05</div>
+  <h2><span class="num">05</span>教 AI 学接龙：训练到底是什么</h2>
+  <p class="lead">
+    上一站的小模之所以"天生会接龙"，是因为我们提前教过它（内置小故事）。
+    现在把它的记忆清空，<b>你亲自当一回老师</b>：它猜、你纠错，每教一轮它就长一点记性。
+    你会亲眼看到一条<b>学习曲线</b>从零爬升——这就是“训练”的真面目。
+  </p>
+  <div class="card">
+    <h3>课堂规则</h3>
+    <p class="hint" style="margin-bottom:14px">
+      每轮：屏幕给出一个句子和一个空，小模根据前文猜下一个字；你作为老师<b>点出正确答案</b>，
+      它就会把这一笔记进"记忆计数表"。它猜没猜对，都会画进下面的学习曲线。
+    </p>
+    <div class="teach-ctx" id="teachCtx">…</div>
+    <div class="ai-say" id="teachSay">小模还没学任何东西，准备瞎蒙。</div>
+    <div class="cand-grid" id="teachOpts"></div>
+    <div class="row">
+      <button class="btn" id="teachRound">换一题</button>
+      <button class="btn" id="teachAuto">自动教 100 轮（快进）</button>
+      <button class="btn ghost" id="teachReset">清空记忆重来</button>
+    </div>
+    <canvas id="teachCurve" height="220" style="margin-top:18px"></canvas>
+    <div class="teach-readouts">
+      <div class="readout" style="flex:1;min-width:120px;background:rgba(148,163,255,.07);border:1px solid var(--border);border-radius:12px;padding:10px 16px;text-align:center"><div class="v" id="trRounds" style="font-size:22px;font-weight:900;color:var(--accent2);font-family:Consolas,monospace">0</div><div style="font-size:12px;color:var(--muted)">已教轮数</div></div>
+      <div class="readout" style="flex:1;min-width:120px;background:rgba(148,163,255,.07);border:1px solid var(--border);border-radius:12px;padding:10px 16px;text-align:center"><div class="v" id="trAcc" style="font-size:22px;font-weight:900;color:var(--accent2);font-family:Consolas,monospace">--</div><div style="font-size:12px;color:var(--muted)">小模累计命中率</div></div>
+    </div>
+    <details class="advance">
+      <summary>进阶：真正的大模型是怎么"记"的？</summary>
+      <p>
+        小模的"记性"是一张计数表；而 GPT 的记性，是<b>几千亿个可调旋钮</b>（参数）。
+        每猜错一次，它不会简单地"加一笔"，而是微微拧动这几千亿个旋钮（这叫"梯度下降"），
+        让正确答案的概率<span style="color:var(--accent2)">变大一点点</span>。
+        思想和小模完全一样：<b>让正确答案更可能出现</b>——只是规模差了亿点点。
+      </p>
+    </details>
+  </div>
+  <div class="sum-box">
+    <h4>本课收获</h4>
+    <ul>
+      <li>训练 = 反复"猜 → 纠错 → 记一笔"</li>
+      <li>学习曲线从瞎蒙爬向熟练，就是"学会了"的证据</li>
+      <li>AI 的知识不是人写进去的，是它从例子里"长"出来的</li>
+    </ul>
+  </div>
+  <a class="next-strip" href="#l06">下一站 <span>06 · 只学一个故事够吗？规模魔法</span> →</a>
+</section>
+
+<!-- ================= 第6站 规模 ================= -->
+<section id="l06" class="reveal">
+  <div class="kicker">第 6 站 · LESSON 06</div>
+  <h2><span class="num">06</span>规模魔法：量变引起质变</h2>
+  <p class="lead">
+    你只教了小模一个故事，它只会接"小猫爱吃鱼"。
+    如果给它<b>一座图书馆</b>、<b>大半个互联网</b>，再换一颗<b>大得多的"脑子"</b>，
+    同样的接龙规则会发生什么？点一点下面的成长阶段看看。
+  </p>
+  <div class="card">
+    <div class="seg-row" id="stageRow"></div>
+    <div class="badge-row" id="stageBadges"></div>
+    <div class="bubble" id="stageSay">点上面的成长阶段，看小模一路进化。</div>
+    <p class="hint" style="margin-top:14px">
+      注：这是<b>示意</b>，真实能力随规模的增长更复杂。但"规模大到一定程度，
+      突然会了更多本领"（这叫<b>涌现</b>）是被反复观察到的现象——没人把"推理能力"
+      写进过程序，它是 AI 读了海量文本后自己"长"出来的。
+    </p>
+  </div>
+  <div class="sum-box">
+    <h4>本课收获</h4>
+    <ul>
+      <li>规则没变，还是接龙；变的是<b>数据量、参数量、算力</b></li>
+      <li>规模大到临界点，会冒出没人专门教过的能力（涌现）</li>
+      <li>"聪明"不是设计的，是读出来的</li>
+    </ul>
+  </div>
+  <a class="next-strip" href="#l07">下一站 <span>07 · 串讲：一句话是如何诞生的</span> →</a>
+</section>
+
+<!-- ================= 第7站 串讲 ================= -->
+<section id="l07" class="reveal">
+  <div class="kicker">第 7 站 · LESSON 07</div>
+  <h2><span class="num">07</span>串讲：一句话是如何诞生的</h2>
+  <p class="lead">
+    前六站你集齐了全部零件。现在把整条流水线走一遍，看一句"今天天气真好"
+    是怎样一个词一个词诞生的。点"下一步"，每一步都会<b>回指你学过的课程</b>。
   </p>
   <div class="card">
     <div class="pipe" id="pipe"></div>
@@ -363,66 +622,119 @@
       <button class="btn small ghost" id="pipeAuto">▶ 自动播放</button>
       <span class="hint" id="pipeStep">步骤 0 / 7</span>
     </div>
-    <div class="pipe-desc" id="pipeDesc">点击"下一步"，开始观察文字流经流水线的全过程。</div>
+    <div class="pipe-desc" id="pipeDesc">点击"下一步"，看文字流经流水线的全过程。</div>
+    <div class="pipe-eg">运行示例：「今天 天气 真」→ 预测「好」→ 拼接 → 再预测下一个……如此循环，直到生成结束。</div>
   </div>
+  <div class="sum-box">
+    <h4>本课收获</h4>
+    <ul>
+      <li>生成一句话 = 流水线转一整圈，然后循环</li>
+      <li>每个零件你都单独玩过了——它们不神秘</li>
+      <li>新问题：既然按概率抽一个词，为什么每次抽到的都不一样？</li>
+    </ul>
+  </div>
+  <a class="next-strip" href="#l08">下一站 <span>08 · 温度：给 AI 调"性格"</span> →</a>
 </section>
 
-<!-- ================= 05 预测 ================= -->
-<section id="predict" class="reveal">
-  <div class="kicker">LESSON 05 · 动手实验</div>
-  <h2><span class="num">05</span>亲手玩一玩：预测下一个字</h2>
+<!-- ================= 第8站 温度 ================= -->
+<section id="l08" class="reveal">
+  <div class="kicker">第 8 站 · LESSON 08</div>
+  <h2><span class="num">08</span>温度：同一个 AI，不同的性格</h2>
   <p class="lead">
-    下面是一个<b>在浏览器里实时训练的微型语言模型</b>（基于一段小故事学习"三元语法"）。
-    它只有几百个"参数"，真正的 GPT 有上万亿——但<b>原理完全相同</b>。
+    上站说生成时"按概率抽一个词"——就像抽签。<b>温度</b>这个旋钮，
+    决定了它是"老实抽"还是"冒险抽"。同一个模型，调调温度就换了性格。
+    拖一拖滑块，亲自感受。
   </p>
   <div class="card">
-    <h3>输入几个字的上下文，让它预测下一个字</h3>
-    <textarea id="ctxInput" rows="2" maxlength="40">小明有一只小猫</textarea>
-    <div class="row" style="margin-top:12px">
-      <button class="btn" id="predictBtn">预测下一个字</button>
-      <button class="btn ghost" id="genBtn">让它自由续写 80 字</button>
+    <h3>开头固定为"小明"，调温度，反复生成，对比结果</h3>
+    <div class="temp-read">
+      <span class="hint">当前温度：<span class="temp-val" id="tempVal">0.8</span></span>
+      <span class="temp-desc" id="tempDesc">均衡：以大概率为主，偶尔冒点新词</span>
     </div>
-    <div style="margin-top:18px" id="predBars"></div>
-    <div class="gen-out" id="genOut"><span class="hint">续写结果会出现在这里……</span></div>
+    <input type="range" id="tempRange" min="0.1" max="2" step="0.1" value="0.8">
+    <div class="row">
+      <button class="btn small ghost" data-temp="0.3">严谨（0.3）</button>
+      <button class="btn small ghost" data-temp="0.8">均衡（0.8）</button>
+      <button class="btn small ghost" data-temp="1.6">天马行空（1.6）</button>
+      <button class="btn" id="tempGo">生成 60 字</button>
+    </div>
+    <div class="gen-out" id="tempOut"><span class="hint">生成结果会出现在这里，多点几次对比……</span></div>
     <p class="hint" style="margin-top:14px">
-      思考：模型给出的不是一个确定的答案，而是<b>一堆概率</b>——真正的 GPT 也是这样，
-      只是它的"概率表"是从海量文本中学习出来的，并且考虑了前面几千个词。
+      秘密：温度低时，概率分布被"压尖"——几乎总是选最可能的词，所以稳重甚至死板；
+      温度高时，分布被"抹平"——生僻词也有机会被抽中，所以跳脱、爱乱跑。
+      ChatGPT 的"更有创造力"开关，本质就是它。
     </p>
   </div>
+  <div class="sum-box">
+    <h4>本课收获</h4>
+    <ul>
+      <li>生成 = 按概率抽签；温度决定抽签的"胆子"</li>
+      <li>温度低：严谨可预期；温度高：多样易跑题</li>
+      <li>这也是 AI 有时会"胡说"的伏笔——下一站揭晓</li>
+    </ul>
+  </div>
+  <a class="next-strip" href="#l09">下一站 <span>09 · AI 的短板：它会自信地说错话</span> →</a>
 </section>
 
-<!-- ================= 06 训练 ================= -->
-<section id="training" class="reveal">
-  <div class="kicker">LESSON 06</div>
-  <h2><span class="num">06</span>训练：从错误中学习</h2>
+<!-- ================= 第9站 短板 ================= -->
+<section id="l09" class="reveal">
+  <div class="kicker">第 9 站 · LESSON 09</div>
+  <h2><span class="num">09</span>短板：它会一本正经地胡说八道</h2>
   <p class="lead">
-    模型的知识不是人工写进去的，而是<b>训练</b>出来的：先随便猜 → 对比正确答案 →
-    计算损失（错得有多离谱）→ 微调参数让损失变小。这个过程叫<b>梯度下降</b>，就像小球滚下山谷。
+    前面八站都在夸它。这一站必须泼点冷水：<b>接龙的本质是"选最像人话的词"，
+    而不是"查事实"</b>。所以当它不懂时，不会说"不知道"，而是编一个最像答案的答案——
+    这就是"幻觉"。来当质检员，找出下面 AI 回答里的错误：
   </p>
   <div class="card">
-    <canvas id="trainCanvas" height="300"></canvas>
-    <div class="row" style="margin-top:16px">
-      <button class="btn" id="trainStepBtn">训练一步</button>
-      <button class="btn ghost" id="trainAutoBtn">▶ 自动训练</button>
-      <button class="btn ghost" id="trainResetBtn">重置</button>
+    <h3>游戏：找出 AI 回答中不可信的地方（点击可疑处）</h3>
+    <div class="spot-card" data-err="鲁迅">
+      <div class="spot-q">问：《红楼梦》是谁写的？</div>
+      <div class="spot-text">AI 回答：“《红楼梦》是<span class="err-target">鲁迅</span>的代表作，描写了贾宝玉和林黛玉的爱情故事。”</div>
+      <div class="spot-msg"></div>
+      <div class="why">《红楼梦》的作者是<b>曹雪芹</b>。AI 学到的是"名著+著名作家"的常见搭配——鲁迅太有名了，就被"接"了上来。句子其余部分全对，最具迷惑性。</div>
     </div>
-    <div class="train-readouts">
-      <div class="readout"><div class="v" id="roStep">0</div><div class="k">训练步数</div></div>
-      <div class="readout"><div class="v" id="roW">-2.50</div><div class="k">参数 w</div></div>
-      <div class="readout"><div class="v" id="roLoss">31.25</div><div class="k">损失 Loss（越小越好）</div></div>
+    <div class="spot-card" data-err="第二">
+      <div class="spot-q">问：世界最高峰是哪座？</div>
+      <div class="spot-text">AI 回答：“珠穆朗玛峰海拔约 8848 米，是世界<span class="err-target">第二</span>高峰。”</div>
+      <div class="spot-msg"></div>
+      <div class="why">珠峰是世界<b>第一</b>高峰。有时错误只有一两个字——越简短越权威的说法，越要警惕。</div>
     </div>
+    <div class="spot-card" data-err="时间">
+      <div class="spot-q">问：光年是什么单位？</div>
+      <div class="spot-text">AI 回答：“光年是<span class="err-target">时间</span>单位，表示光传播一年所需的时间。”</div>
+      <div class="spot-msg"></div>
+      <div class="why">光年是<b>长度（距离）</b>单位。这个错误非常流行，语料里"光年"又总和"时间"一起出现，AI 很容易就"接"错了。</div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>现场演示：给它一个怪开头，看它"流畅地乱写"</h3>
+    <div class="row">
+      <input type="text" id="halluInput" value="量子香蕉在花园里" maxlength="20" style="flex:1;min-width:160px">
+      <button class="btn" id="halluGo">让小模续写</button>
+    </div>
+    <div class="gen-out" id="halluOut"><span class="hint">输出会出现在这里……</span></div>
     <p class="hint" style="margin-top:14px">
-      小球总是沿着"下降最快的方向"滚动（负梯度）。真实模型有上万亿个参数，
-      想象在一个上万亿维的山谷里同时滚着无数个小球——这就是训练大模型的样子。
+      看到没：不管开头多离谱，它都接得<b>文从字顺</b>——因为接龙只看"像不像人话"，
+      从不检查"是不是真的"。<b>流畅 ≠ 正确</b>。
     </p>
   </div>
+  <div class="sum-box warn">
+    <h4>使用 AI 三原则</h4>
+    <ul>
+      <li>重要事实（健康、法律、新闻、数字）务必核实原始来源</li>
+      <li>它说错时往往和说对时一样自信</li>
+      <li>把它当助手，不当权威</li>
+    </ul>
+  </div>
+  <a class="next-strip" href="#l10">下一站 <span>10 · 结业测验，领取你的理解</span> →</a>
 </section>
 
-<!-- ================= 07 测验 ================= -->
-<section id="quiz" class="reveal">
-  <div class="kicker">FINAL QUIZ</div>
-  <h2><span class="num">07</span>小测验：你真的看懂了吗？</h2>
-  <p class="lead">四道题，答完立刻出解析。</p>
+<!-- ================= 第10站 测验 ================= -->
+<section id="l10" class="reveal">
+  <div class="kicker">第 10 站 · FINAL QUIZ</div>
+  <h2><span class="num">10</span>结业测验</h2>
+  <p class="lead">十站走完，验收一下。六道题，覆盖全程要点，答完立刻出解析。</p>
+  <div class="qp-track"><div class="qp-fill" id="quizProg"></div></div>
   <div id="quizBox"></div>
   <div class="score-box" id="scoreBox" style="display:none"></div>
 </section>
@@ -431,10 +743,15 @@
 
 <footer>
   <p class="sum">
-    一句话总结：<b class="grad">大模型 = 把文字变成向量（Embedding），
-    用注意力理解上下文，不断预测下一个词，再从错误中反复学习的机器。</b>
+    十站毕业：<b class="grad">大模型 = 把文字变成坐标，用注意力理解上下文，按概率玩接龙、
+    从错误里学出来的机器</b>——它会惊艳，也会自信地说错话，请当它是个聪明的助手。
   </p>
-  <p>大模型原理 · 交互课堂 —— 所有实验均在浏览器本地运行，无需联网</p>
+  <p>大模型原理 · 交互课堂 v2.0 —— 所有实验均在浏览器本地运行</p>
+  <div class="links">
+    <a href="https://will-ww.github.io/llm-interactive-class/">在线体验</a>
+    <a href="https://github.com/will-ww/llm-interactive-class">GitHub 仓库</a>
+    <a href="https://github.com/will-ww/llm-interactive-class/issues">反馈与共建</a>
+  </div>
 </footer>
 
 <script>
@@ -460,7 +777,7 @@ function setupCanvas(cv, cssHeight){
 ============================================================ */
 const revealIO = new IntersectionObserver(es => {
   es.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
-}, { threshold: .12 });
+}, { threshold: .1 });
 $$(".reveal").forEach(el => revealIO.observe(el));
 
 const navLinks = $$(".nav-links a");
@@ -479,7 +796,6 @@ $$("main section").forEach(s => spyIO.observe(s));
 (function typewriter(){
   const demos = [
     { p: "输入：今天天气真", n: "好" },
-    { p: "输入：人工智能正在", n: "改变世界" },
     { p: "输入：小猫在草地上", n: "跑来跑去" },
     { p: "输入：大模型的本质是", n: "预测下一个词" },
   ];
@@ -493,14 +809,11 @@ $$("main section").forEach(s => spyIO.observe(s));
       if (i >= d.p.length) { phase = "pause"; i = 0; return setTimeout(tick, 500); }
       return setTimeout(tick, 110);
     }
-    if (phase === "pause") {
-      phase = "typeN";
-      return setTimeout(tick, 300);
-    }
+    if (phase === "pause") { phase = "typeN"; return setTimeout(tick, 300); }
     if (phase === "typeN") {
       i++;
       box.innerHTML = '<span class="prompt">用户：</span>' + d.p +
-        '　→　<span class="pred">模型预测：' + d.n.slice(0, i) + '</span><span class="caret"></span>';
+        '　→　<span class="pred">AI 接：' + d.n.slice(0, i) + '</span><span class="caret"></span>';
       if (i >= d.n.length) { phase = "hold"; return setTimeout(tick, 1800); }
       return setTimeout(tick, 160);
     }
@@ -514,7 +827,7 @@ $$("main section").forEach(s => spyIO.observe(s));
 })();
 
 /* ============================================================
-   实验 1：Token 分词
+   第 1 站：Token 分词
 ============================================================ */
 (function tokenizer(){
   const input = $("#tokInput"), out = $("#tokOut"),
@@ -532,7 +845,7 @@ $$("main section").forEach(s => spyIO.observe(s));
     toks.forEach((t, i) => {
       const span = document.createElement("span");
       span.className = "chip";
-      span.style.background = `hsla(${(i * 67) % 360}, 70%, 55%, .85)`;
+      span.style.background = "hsla(" + ((i * 67) % 360) + ",70%,55%,.85)";
       span.textContent = t;
       out.appendChild(span);
     });
@@ -547,7 +860,7 @@ $$("main section").forEach(s => spyIO.observe(s));
 })();
 
 /* ============================================================
-   实验 2：Embedding 词向量
+   第 2 站：Embedding 词向量
 ============================================================ */
 (function embedding(){
   const WORDS = [
@@ -564,15 +877,14 @@ $$("main section").forEach(s => spyIO.observe(s));
     { t:"学生", c:"学习", x:5.5,  y:-5.5 }, { t:"书本", c:"学习", x:7,    y:-3.2 },
   ];
   const COLORS = { 水果:"#4fd1c5", 动物:"#ffb35c", 人物:"#b78bff", 自然:"#7ee081", 学习:"#6ca8ff" };
-  const X0=-8, X1=8.5, Y0=-8, Y1=7;   // 逻辑坐标范围
+  const X0=-8, X1=8.5, Y0=-8, Y1=7;
 
   const cv = $("#embCanvas");
   const cap = $("#embCaption");
   let geo = setupCanvas(cv, 440);
   let hoverIdx = -1;
-  let anim = null;   // 类比演示动画状态
+  let anim = null;
 
-  // 图例
   const legend = $("#embLegend");
   Object.entries(COLORS).forEach(([name, col]) => {
     const s = document.createElement("span");
@@ -586,10 +898,9 @@ $$("main section").forEach(s => spyIO.observe(s));
   const py = y => 20 + (Y1 - y) / (Y1 - Y0) * (geo.h - 44);
 
   function draw(){
-    const { ctx, w, h } = geo;
+    const ctx = geo.ctx, w = geo.w, h = geo.h;
     ctx.clearRect(0, 0, w, h);
 
-    // 网格
     ctx.strokeStyle = "rgba(148,163,255,.08)";
     ctx.lineWidth = 1;
     for (let gx = Math.ceil(X0); gx <= X1; gx++){
@@ -599,7 +910,6 @@ $$("main section").forEach(s => spyIO.observe(s));
       ctx.beginPath(); ctx.moveTo(px(X0), py(gy)); ctx.lineTo(px(X1), py(gy)); ctx.stroke();
     }
 
-    // 悬停时的邻居连线
     if (hoverIdx >= 0 && !anim){
       const a = WORDS[hoverIdx];
       const others = WORDS.map((b, i) => ({ b, i, d: Math.hypot(a.x-b.x, a.y-b.y) }))
@@ -612,9 +922,7 @@ $$("main section").forEach(s => spyIO.observe(s));
       });
     }
 
-    // 类比动画
     if (anim){
-      const A = anim;   // {t, phase}
       const king = WORDS.find(w2 => w2.t === "国王"),
             man  = WORDS.find(w2 => w2.t === "男人"),
             woman= WORDS.find(w2 => w2.t === "女人");
@@ -628,15 +936,15 @@ $$("main section").forEach(s => spyIO.observe(s));
         ctx.fillStyle = col;
         ctx.beginPath(); ctx.arc(px(ex), py(ey), 5, 0, 7); ctx.fill();
       };
-      if (A.phase === 1){
-        arrow(man.x, man.y, woman.x, woman.y, A.t, "#4fd1c5");
+      if (anim.phase === 1){
+        arrow(man.x, man.y, woman.x, woman.y, anim.t, "#4fd1c5");
         ctx.fillStyle = "#4fd1c5";
         ctx.font = "13px sans-serif";
         ctx.fillText("女人 − 男人 = “性别方向”", px(man.x) - 60, py(man.y) + 44);
-      } else if (A.phase >= 2){
+      } else if (anim.phase >= 2){
         arrow(man.x, man.y, woman.x, woman.y, 1, "rgba(79,209,197,.35)");
-        arrow(king.x, king.y, rx, ry, A.t2, "#ff8fb3");
-        if (A.t2 >= 1){
+        arrow(king.x, king.y, rx, ry, anim.t2, "#ff8fb3");
+        if (anim.t2 >= 1){
           ctx.fillStyle = "#ff8fb3";
           ctx.beginPath(); ctx.arc(px(rx), py(ry), 8, 0, 7); ctx.fill();
           ctx.font = "bold 13px sans-serif";
@@ -645,7 +953,6 @@ $$("main section").forEach(s => spyIO.observe(s));
       }
     }
 
-    // 词点
     WORDS.forEach((wd, i) => {
       const isHover = i === hoverIdx;
       const r = isHover ? 10 : 7;
@@ -677,19 +984,22 @@ $$("main section").forEach(s => spyIO.observe(s));
       hoverIdx = best;
       if (best >= 0){
         const a = WORDS[best];
-        const near = WORDS.map((b, i) => ({ b, d: Math.hypot(a.x-b.x, a.y-b.y) }))
+        const near = WORDS.map((b) => ({ b, d: Math.hypot(a.x-b.x, a.y-b.y) }))
           .filter(o => o.b !== a).sort((m, n) => m.d - n.d).slice(0, 3)
           .map(o => "「" + o.b.t + "」").join("、");
-        cap.innerHTML = "与 <b>" + a.t + "</b> 最接近的词：" + near + " —— 语义相近的词，坐标也相近。";
+        cap.innerHTML = "与 <b>" + a.t + "</b> 最接近的词：" + near;
       } else {
-        cap.innerHTML = "悬停某个词，看看它的“邻居“是谁。";
+        cap.innerHTML = "悬停任意一个词，看看它的“邻居”是谁。";
       }
       draw();
     }
   });
-  cv.addEventListener("mouseleave", () => { hoverIdx = -1; cap.innerHTML = "悬停某个词，看看它的“邻居“是谁。"; draw(); });
+  cv.addEventListener("mouseleave", () => {
+    hoverIdx = -1;
+    cap.innerHTML = "悬停任意一个词，看看它的“邻居”是谁。";
+    draw();
+  });
 
-  // 向量算术演示
   $("#analogyBtn").addEventListener("click", () => {
     const res = $("#analogyResult");
     res.textContent = "";
@@ -701,7 +1011,7 @@ $$("main section").forEach(s => spyIO.observe(s));
       else if (el < 3.0){ anim.phase = 2; anim.t = 1; anim.t2 = (el - 1.4) / 1.6; }
       else {
         anim.phase = 3; anim.t = 1; anim.t2 = 1;
-        res.innerHTML = "结果（粉色点）离 <b>王后</b> 最近！向量运算自动捕捉到了“性别“这个方向——这正是 Embedding 的魔力。";
+        res.innerHTML = "结果（粉色点）离 <b>王后</b> 最近！坐标里真的藏着“性别“这个方向——这就是 Embedding 的魔力。";
       }
       draw();
       if (el < 3.0) requestAnimationFrame(frame);
@@ -712,10 +1022,9 @@ $$("main section").forEach(s => spyIO.observe(s));
   window.addEventListener("resize", () => { geo = setupCanvas(cv, 440); draw(); });
   draw();
 })();
-</script>
-<script>
+
 /* ============================================================
-   实验 3：注意力机制
+   第 3 站：注意力机制
 ============================================================ */
 (function attention(){
   const SENTS = [
@@ -741,7 +1050,7 @@ $$("main section").forEach(s => spyIO.observe(s));
       focus: {
         "它": { "书包": .40, "柜子": .20, "满": .18, "小明": .08, "放": .04, "太": .03, "进": .02, "把": .02, "了": .02, "，": .01 },
       },
-      noteForIt: "这句有歧义：「它」是指书包太满，还是柜子太满？模型会在两者之间分配注意力——连人类都要想一想呢。"
+      noteForIt: "这句有歧义：「它」是指书包太满，还是柜子太满？模型在两者之间分配注意力——连人类都要想一想呢。"
     },
   ];
 
@@ -760,11 +1069,7 @@ $$("main section").forEach(s => spyIO.observe(s));
   function weightsFor(s, idx){
     const t = s.tokens[idx];
     if (s.focus[t]) return s.tokens.map(tok => s.focus[t][tok] || 0.005);
-    // 无预设：自己保留一部分，其余按距离衰减（模拟局部注意力）
-    const raw = s.tokens.map((_, j) => {
-      if (j === idx) return 4;
-      return 1 / (1 + Math.abs(j - idx));
-    });
+    const raw = s.tokens.map((_, j) => (j === idx ? 4 : 1 / (1 + Math.abs(j - idx))));
     const sum = raw.reduce((a, b) => a + b, 0);
     return raw.map(r => r / sum);
   }
@@ -783,7 +1088,7 @@ $$("main section").forEach(s => spyIO.observe(s));
       d.addEventListener("click", () => select(s, i));
       tokBox.appendChild(d);
     });
-    note.textContent = "先点击一个词语，看看它的注意力都分配给了谁。";
+    note.textContent = "先点击一个词语，看看它的注意力都分给了谁。";
   }
 
   function select(s, idx){
@@ -794,7 +1099,7 @@ $$("main section").forEach(s => spyIO.observe(s));
       el.classList.toggle("sel", i === idx);
       el.style.background = i === idx
         ? "rgba(79,209,197,.25)"
-        : `rgba(124,140,255,${(w * .95 + .03).toFixed(3)})`;
+        : "rgba(124,140,255," + (w * .95 + .03).toFixed(3) + ")";
       el.title = "注意力权重：" + (w * 100).toFixed(1) + "%";
     });
     const t = s.tokens[idx];
@@ -810,70 +1115,13 @@ $$("main section").forEach(s => spyIO.observe(s));
 
   render();
 })();
-
+</script>
+<script>
 /* ============================================================
-   实验 4：Transformer 流水线
+   共享微型语言模型（第 4、8、9 站共用）
+   基于内置小故事训练的字符级三元语法模型
 ============================================================ */
-(function pipeline(){
-  const STAGES = [
-    { t: "输入文本",     d: "你提出的问题或一段话" },
-    { t: "Token 切分",   d: "文字被切成最小单位" },
-    { t: "Embedding",    d: "查表变成一串数字（向量）" },
-    { t: "注意力层 ×N",  d: "词与词互相打量，交换上下文" },
-    { t: "前馈网络",     d: "每个词独立“思考”，提炼特征" },
-    { t: "输出概率",     d: "对词表每个词打分→概率分布" },
-    { t: "采样成词",     d: "按概率挑一个词，拼回文本" },
-  ];
-  const DESCS = [
-    "一切从<b>你输入的文字</b>开始：一句话、一个问题、一段代码……",
-    "文字被切成一个个 <b>Token</b>（见第 1 课）。模型从此只和这些小块打交道。",
-    "每个 Token 通过查表变成一个 <b>Embedding 向量</b>（见第 2 课），数字才能参与计算。",
-    "这是 Transformer 的核心！多层注意力让代词找到名词、让“苹果“分辨出是水果还是公司（见第 3 课）。",
-    "每个向量再独立通过一个小网络，像“个人思考“一样把上下文信息消化成更抽象的特征。",
-    "网络输出数万个分数，经过 softmax 变成<b>概率分布</b>——每个候选词一个可能性（见第 5 课）。",
-    "按概率挑一个词输出，它就成了“下一个词”；然后这个词拼回上下文，<b>循环往复</b>，直到生成结束。",
-  ];
-
-  const pipe = $("#pipe");
-  STAGES.forEach((s, i) => {
-    const n = document.createElement("div");
-    n.className = "pipe-node";
-    n.innerHTML = `<div class="no">${String(i + 1).padStart(2, "0")}</div><div class="t">${s.t}</div><div class="d">${s.d}</div>`;
-    pipe.appendChild(n);
-  });
-
-  let step = 0, timer = null;
-  const nodes = $$("#pipe .pipe-node");
-
-  function show(){
-    nodes.forEach((n, i) => n.classList.toggle("on", i < step));
-    $("#pipeStep").textContent = `步骤 ${step} / 7`;
-    $("#pipeDesc").innerHTML = step === 0
-      ? "点击“下一步”，开始观察文字流经流水线的全过程。"
-      : DESCS[step - 1] + (step === 7 ? "<br><b>这就是“文字接龙“的完整一圈！</b>" : "");
-  }
-  function stopAuto(){ if (timer){ clearInterval(timer); timer = null; $("#pipeAuto").textContent = "▶ 自动播放"; } }
-
-  $("#pipeNext").addEventListener("click", () => { stopAuto(); step = Math.min(7, step + 1); show(); });
-  $("#pipePrev").addEventListener("click", () => { stopAuto(); step = Math.max(0, step - 1); show(); });
-  $("#pipeAuto").addEventListener("click", () => {
-    if (timer){ stopAuto(); return; }
-    if (step >= 7) step = 0;
-    $("#pipeAuto").textContent = "⏸ 暂停";
-    timer = setInterval(() => {
-      step++;
-      show();
-      if (step >= 7) stopAuto();
-    }, 1600);
-  });
-  show();
-})();
-
-/* ============================================================
-   实验 5：微型语言模型（三元语法）
-============================================================ */
-(function miniLM(){
-  // 训练语料：一段重复句式较多的小故事，方便小模型学到规律
+const MiniLM = (function(){
   const CORPUS =
     "小明有一只小猫。小猫喜欢吃鱼。小明每天都给小猫喂鱼。早上，小明对小猫说，我们去公园吧。" +
     "小猫跟着小明去公园。公园里有花，有草，有大树。小明在草地上跑，小猫在草地上跑。" +
@@ -886,174 +1134,492 @@ $$("main section").forEach(s => spyIO.observe(s));
     "天黑了，小明带着小猫回家。小猫累了，趴在地板上睡觉。小明给小猫盖上小被子。" +
     "这就是小明和小猫快乐的一天。";
 
-  // 训练：统计三元语法（前两个字 → 下一个字的出现次数）
-  const tri = new Map(), chars = new Map();
+  const tri = new Map(), bi = new Map(), uni = new Map();
   for (let i = 0; i < CORPUS.length; i++){
     const c = CORPUS[i];
-    chars.set(c, (chars.get(c) || 0) + 1);
-    if (i < 2) continue;
-    const k = CORPUS[i - 2] + CORPUS[i - 1];
-    if (!tri.has(k)) tri.set(k, new Map());
-    const m = tri.get(k);
-    m.set(c, (m.get(c) || 0) + 1);
-  }
-
-  function predict(ctx){
-    const a = ctx[ctx.length - 2] || "", b = ctx[ctx.length - 1] || "";
-    const m = tri.get(a + b);
-    const probs = new Map();
-    if (m){
-      for (const [c, n] of m) probs.set(c, n + 0.2);   // 平滑
-    } else {
-      for (const [c, n] of chars) probs.set(c, n / CORPUS.length);  // 回退：全局频率
+    uni.set(c, (uni.get(c) || 0) + 1);
+    if (i > 0){
+      const k1 = CORPUS[i - 1];
+      if (!bi.has(k1)) bi.set(k1, new Map());
+      const m1 = bi.get(k1);
+      m1.set(c, (m1.get(c) || 0) + 1);
     }
-    const sum = [...probs.values()].reduce((x, y) => x + y, 0);
-    return [...probs.entries()].map(([c, p]) => [c, p / sum])
-      .sort((x, y) => y[1] - x[1]).slice(0, 5);
+    if (i > 1){
+      const k2 = CORPUS[i - 2] + CORPUS[i - 1];
+      if (!tri.has(k2)) tri.set(k2, new Map());
+      const m2 = tri.get(k2);
+      m2.set(c, (m2.get(c) || 0) + 1);
+    }
   }
 
-  function sampleNext(ctx){
-    const cands = predict(ctx).map(([c, p]) => [c, Math.pow(p, 1 / .8)]);  // 温度采样
-    const sum = cands.reduce((s, c) => s + c[1], 0);
+  function countsFor(ctx){
+    const a = ctx[ctx.length - 2] || "", b = ctx[ctx.length - 1] || "";
+    if (ctx.length >= 2 && tri.has(a + b)) return tri.get(a + b);
+    if (ctx.length >= 1 && bi.has(b)) return bi.get(b);
+    return uni;
+  }
+
+  function top(ctx, n){
+    const m = countsFor(ctx);
+    const probs = new Map();
+    for (const [c, w] of m) probs.set(c, w + 0.2);
+    const sum = [...probs.values()].reduce((x, y) => x + y, 0);
+    return [...probs.entries()]
+      .map(([c, p]) => [c, p / sum])
+      .sort((x, y) => y[1] - x[1])
+      .slice(0, n);
+  }
+
+  function sample(ctx, temp){
+    const cands = top(ctx, 8).map(([c, p]) => [c, Math.pow(p, 1 / temp)]);
+    const sum = cands.reduce((s, x) => s + x[1], 0);
     let r = Math.random() * sum;
     for (const [c, w] of cands){ r -= w; if (r <= 0) return c; }
     return cands[0][0];
   }
 
+  return { top, sample };
+})();
+
+/* 通用：逐字动画输出到容器 */
+function typeGen(el, getText, done){
+  if (el._timer) clearInterval(el._timer);
+  const text = getText();
+  let i = 0;
+  el.innerHTML = '<span class="new"></span><span class="caret"></span>';
+  const target = el.querySelector(".new");
+  const caret = el.querySelector(".caret");
+  el._timer = setInterval(() => {
+    target.textContent += text[i];
+    i++;
+    if (i >= text.length){
+      clearInterval(el._timer);
+      el._timer = null;
+      if (caret) caret.remove();
+      if (done) done();
+    }
+  }, 50);
+}
+
+/* ============================================================
+   第 4 站：文字接龙
+============================================================ */
+(function solong(){
   const barsBox = $("#predBars"), genOut = $("#genOut");
 
   $("#predictBtn").addEventListener("click", () => {
     const ctx = $("#ctxInput").value.trim();
     if (!ctx){ barsBox.innerHTML = '<p class="hint">先输入几个字吧。</p>'; return; }
-    const top = predict(ctx);
+    const top = MiniLM.top(ctx, 5);
     barsBox.innerHTML = "";
     top.forEach(([c, p], i) => {
       const row = document.createElement("div");
       row.className = "bar-row";
       row.innerHTML =
-        `<div class="bar-label">${c === " " ? "␣" : c}</div>` +
-        `<div class="bar-track"><div class="bar-fill"></div></div>` +
-        `<div class="bar-pct">${(p * 100).toFixed(1)}%</div>`;
+        '<div class="bar-label">' + (c === " " ? "␣" : c) + '</div>' +
+        '<div class="bar-track"><div class="bar-fill"></div></div>' +
+        '<div class="bar-pct">' + (p * 100).toFixed(1) + '%</div>';
       barsBox.appendChild(row);
       setTimeout(() => row.querySelector(".bar-fill").style.width = (p * 100) + "%", 60 * i + 30);
     });
-    genOut.innerHTML = '<span class="hint">想看到它继续往下写？点“让它自由续写 80 字”。</span>';
+    genOut.innerHTML = '<span class="hint">想知道它继续往下写什么样？点“自动续写 80 字”。</span>';
   });
 
-  let genTimer = null;
   $("#genBtn").addEventListener("click", () => {
-    if (genTimer) return;
-    let ctx = $("#ctxInput").value.trim() || "小明";
-    genOut.innerHTML = '<span style="color:var(--muted)">' + ctx + '</span><span class="new"></span><span class="caret"></span>';
-    const target = document.querySelector("#genOut .new");
-    const caret = genOut.querySelector(".caret");
-    let n = 0;
-    genTimer = setInterval(() => {
-      const c = sampleNext(ctx);
-      ctx += c; n++;
-      target.textContent += c;
-      if (n >= 80 || (c === "。" && n > 30)){
-        clearInterval(genTimer); genTimer = null;
-        if (caret) caret.remove();
-      }
-    }, 55);
+    let ctx = ($("#ctxInput").value.trim() || "小明");
+    typeGen(genOut, () => {
+      let out = "";
+      for (let k = 0; k < 80; k++) out += MiniLM.sample(ctx + out, 0.85);
+      return out;
+    });
   });
+
+  // 实验 B：人机接龙
+  const storyEl = $("#soloStory");
+  let segs = [];   // [{who:"u"|"a", txt}]
+  function renderStory(){
+    if (!segs.length){
+      storyEl.innerHTML = '<span class="hint">你们合写的故事会出现在这里……</span>';
+      return;
+    }
+    storyEl.innerHTML = segs.map(s =>
+      '<span class="' + (s.who === "u" ? "tu" : "tai") + '">' + s.txt + "</span>"
+    ).join("");
+  }
+  function fullText(){ return segs.map(s => s.txt).join(""); }
+
+  $("#soloGo").addEventListener("click", () => {
+    const u = $("#soloInput").value.trim();
+    if (!u) return;
+    segs.push({ who: "u", txt: u });
+    let ai = "";
+    for (let k = 0; k < 2; k++) ai += MiniLM.sample(fullText() + ai, 0.9);
+    segs.push({ who: "a", txt: ai });
+    renderStory();
+    $("#soloInput").value = "";
+  });
+  $("#soloClear").addEventListener("click", () => { segs = []; renderStory(); });
 })();
 
 /* ============================================================
-   实验 6：训练（梯度下降可视化）
+   第 5 站：教 AI 学接龙（训练游戏）
 ============================================================ */
-(function training(){
-  const cv = $("#trainCanvas");
-  let geo = setupCanvas(cv, 300);
-  let w = -2.5, steps = 0, trail = [], timer = null;
-  const LR = 0.18;
-  const loss = w2 => Math.pow(w2 - 3, 2) + 0.5;   // 损失函数：(w-3)^2 + 0.5
+(function teachGame(){
+  const STORY = "小猫爱吃鱼，小明爱读书，小鸟爱唱歌。";
+  const chars = Array.from(STORY);
+  const vocab = Array.from(new Set(chars));
+  const BASELINE = 1 / vocab.length;
 
-  const px = v => 46 + (v + 5) / 11 * (geo.w - 76);
-  const py = l => geo.h - 30 - (l / 34) * (geo.h - 56);
+  const ctxEl = $("#teachCtx"), sayEl = $("#teachSay"), optsEl = $("#teachOpts"), msgEl = null;
+  const cv = $("#teachCurve");
+  let geo = setupCanvas(cv, 220);
 
-  function draw(){
-    const { ctx, w: W, h: H } = geo;
-    ctx.clearRect(0, 0, W, H);
+  let memory = new Map();   // 前一个字 -> Map(下一个字 -> 次数)
+  let rounds = 0, hits = 0, hist = [];
+  let current = null;
+  let autoTimer = null;
 
-    // 坐标轴
-    ctx.strokeStyle = "rgba(148,163,255,.25)";
-    ctx.lineWidth = 1.5;
-    ctx.beginPath(); ctx.moveTo(40, 14); ctx.lineTo(40, H - 28); ctx.lineTo(W - 24, H - 28); ctx.stroke();
-    ctx.fillStyle = "rgba(152,163,200,.9)";
-    ctx.font = "12px sans-serif";
-    ctx.fillText("损失 Loss", 42, 26);
-    ctx.fillText("参数 w", W - 74, H - 36);
-    for (let v = -4; v <= 6; v += 2){
-      ctx.fillStyle = "rgba(152,163,200,.55)";
-      ctx.fillText(String(v), px(v) - 4, H - 12);
+  function mem(key){
+    if (!memory.has(key)) memory.set(key, new Map());
+    return memory.get(key);
+  }
+
+  function modelGuess(key){
+    const m = memory.get(key);
+    if (!m || m.size === 0){
+      return { ch: vocab[Math.floor(Math.random() * vocab.length)], conf: null };
     }
+    let best = null, bn = -1, tot = 0;
+    m.forEach((n, c) => { tot += n; if (n > bn){ bn = n; best = c; } });
+    return { ch: best, conf: bn / tot };
+  }
 
-    // 损失曲线
-    ctx.strokeStyle = "rgba(124,140,255,.8)";
+  function newRound(){
+    const idx = 1 + Math.floor(Math.random() * (chars.length - 1));
+    const key = chars[idx - 1];
+    const correct = chars[idx];
+    const guess = modelGuess(key);
+
+    const set = new Set([correct]);
+    const m = memory.get(key);
+    if (m){
+      [...m.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3).forEach(([c]) => set.add(c));
+    }
+    while (set.size < Math.min(6, vocab.length)){
+      set.add(vocab[Math.floor(Math.random() * vocab.length)]);
+    }
+    current = { idx, key, correct, guess };
+
+    const showFrom = Math.max(0, idx - 6);
+    ctxEl.innerHTML = chars.slice(showFrom, idx).join("") + '<span class="blank">？</span>';
+
+    sayEl.innerHTML = guess.conf === null
+      ? "小模还没学过「" + key + "」后面接什么，正准备瞎蒙。"
+      : "小模觉得 <b>「" + guess.ch + "」</b> 最有可能（信心 " + (guess.conf * 100).toFixed(0) + "%）。";
+
+    optsEl.innerHTML = "";
+    [...set].sort(() => Math.random() - .5).forEach(c => {
+      const b = document.createElement("button");
+      b.className = "cand";
+      b.textContent = c;
+      b.addEventListener("click", () => pick(b, c));
+      optsEl.appendChild(b);
+    });
+  }
+
+  function pick(btn, ch){
+    if (!current) return;
+    if (ch !== current.correct){
+      btn.classList.add("wrongpick", "shake");
+      setTimeout(() => btn.classList.remove("shake"), 300);
+      sayEl.textContent = "不对哦——你是老师，要公布的是故事里的真实答案。再看看上文？";
+      return;
+    }
+    btn.classList.add("right");
+    learn(current.key, current.correct, current.guess);
+    setTimeout(() => { if (!autoTimer) newRound(); }, 750);
+  }
+
+  function learn(key, correct, guess){
+    const m = mem(key);
+    m.set(correct, (m.get(correct) || 0) + 2);
+    rounds++;
+    const hit = guess && guess.ch === correct ? 1 : 0;
+    hits += hit;
+    hist.push(hit);
+    sayEl.innerHTML = hit
+      ? "小模本来就猜对了！（命中 +1）它已经对「" + key + "」后面接什么很有把握。"
+      : "小模记住了：「" + key + "」后面常常是「" + correct + "」。";
+    updateReadouts();
+    drawCurve();
+  }
+
+  function updateReadouts(){
+    $("#trRounds").textContent = rounds;
+    $("#trAcc").textContent = rounds ? (hits / rounds * 100).toFixed(0) + "%" : "--";
+  }
+
+  function drawCurve(){
+    const ctx = geo.ctx, w = geo.w, h = geo.h;
+    ctx.clearRect(0, 0, w, h);
+    const padL = 44, padR = 14, padT = 16, padB = 28;
+    const iw = w - padL - padR, ih = h - padT - padB;
+    const xMax = Math.max(40, Math.ceil(rounds / 10) * 10);
+
+    // 网格 + 坐标轴
+    ctx.strokeStyle = "rgba(148,163,255,.12)";
+    ctx.fillStyle = "rgba(152,163,200,.7)";
+    ctx.font = "11px sans-serif";
+    ctx.lineWidth = 1;
+    for (let pct = 0; pct <= 100; pct += 25){
+      const y = padT + ih * (1 - pct / 100);
+      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + iw, y); ctx.stroke();
+      ctx.fillText(pct + "%", 8, y + 4);
+    }
+    ctx.fillText("轮数 →", padL + iw - 40, h - 8);
+    ctx.fillText("命中率", 4, 12);
+
+    // 瞎蒙基线
+    const yBase = padT + ih * (1 - BASELINE);
+    ctx.strokeStyle = "rgba(255,107,129,.5)";
+    ctx.setLineDash([5, 5]);
+    ctx.beginPath(); ctx.moveTo(padL, yBase); ctx.lineTo(padL + iw, yBase); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = "rgba(255,107,129,.8)";
+    ctx.fillText("瞎蒙基线", padL + iw - 56, yBase - 6);
+
+    if (hist.length === 0) return;
+
+    // 累计命中率曲线
+    ctx.strokeStyle = "#4fd1c5";
     ctx.lineWidth = 2.5;
     ctx.beginPath();
-    for (let v = -4.6; v <= 6.4; v += .08){
-      const x = px(v), y = py(loss(v));
-      v === -4.6 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-    }
+    let run = 0;
+    hist.forEach((v, i) => {
+      run += v;
+      const x = padL + iw * ((i + 1) / xMax);
+      const y = padT + ih * (1 - (run / (i + 1)));
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
     ctx.stroke();
-
-    // 谷底标记
-    ctx.fillStyle = "rgba(79,209,197,.9)";
-    ctx.beginPath(); ctx.arc(px(3), py(loss(3)), 5, 0, 7); ctx.fill();
-    ctx.fillText("最低点 = 最优参数", px(3) - 44, py(loss(3)) + 20);
-
-    // 滚动轨迹
-    for (let i = 1; i < trail.length; i++){
-      ctx.strokeStyle = "rgba(255,143,179,.6)";
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(px(trail[i - 1]), py(loss(trail[i - 1])));
-      ctx.lineTo(px(trail[i]), py(loss(trail[i])));
-      ctx.stroke();
-    }
-
-    // 小球
-    const bx = px(w), by = py(loss(w));
-    ctx.shadowColor = "#ff8fb3"; ctx.shadowBlur = 16;
-    ctx.fillStyle = "#ff8fb3";
-    ctx.beginPath(); ctx.arc(bx, by, 9, 0, 7); ctx.fill();
-    ctx.shadowBlur = 0;
+    // 末端点
+    const lastX = padL + iw * (hist.length / xMax);
+    const lastY = padT + ih * (1 - (hits / rounds));
+    ctx.fillStyle = "#4fd1c5";
+    ctx.beginPath(); ctx.arc(lastX, lastY, 4, 0, 7); ctx.fill();
   }
 
-  function readout(){
-    $("#roStep").textContent = steps;
-    $("#roW").textContent = w.toFixed(2);
-    $("#roLoss").textContent = loss(w).toFixed(2);
-  }
-
-  function stepOnce(){
-    trail.push(w);
-    w = w - LR * 2 * (w - 3);   // 梯度下降
-    steps++;
-    draw(); readout();
-  }
-
-  function stop(){ if (timer){ clearInterval(timer); timer = null; $("#trainAutoBtn").textContent = "▶ 自动训练"; } }
-
-  $("#trainStepBtn").addEventListener("click", () => { stop(); stepOnce(); });
-  $("#trainAutoBtn").addEventListener("click", () => {
-    if (timer){ stop(); return; }
-    $("#trainAutoBtn").textContent = "⏸ 暂停";
-    timer = setInterval(stepOnce, 260);
+  $("#teachRound").addEventListener("click", () => { stopAuto(); newRound(); });
+  $("#teachReset").addEventListener("click", () => {
+    stopAuto();
+    memory = new Map(); rounds = 0; hits = 0; hist = [];
+    updateReadouts(); drawCurve(); newRound();
+    sayEl.textContent = "记忆已清空，小模又变回了啥都不会的小不点。";
   });
-  $("#trainResetBtn").addEventListener("click", () => {
-    stop(); w = -2.5; steps = 0; trail = []; draw(); readout();
+  $("#teachAuto").addEventListener("click", () => {
+    if (autoTimer) return;
+    let n = 0;
+    autoTimer = setInterval(() => {
+      const idx = 1 + Math.floor(Math.random() * (chars.length - 1));
+      const key = chars[idx - 1], correct = chars[idx];
+      const guess = modelGuess(key);
+      learn(key, correct, guess);
+      n++;
+      if (n >= 100){
+        stopAuto();
+        newRound();
+        sayEl.innerHTML = "100 轮教完！看曲线：小模从瞎蒙一路爬到了稳定命中——这就是<b>训练</b>。";
+      }
+    }, 40);
   });
+  function stopAuto(){
+    if (autoTimer){ clearInterval(autoTimer); autoTimer = null; }
+  }
 
-  window.addEventListener("resize", () => { geo = setupCanvas(cv, 300); draw(); });
-  draw(); readout();
+  window.addEventListener("resize", () => { geo = setupCanvas(cv, 220); drawCurve(); });
+  updateReadouts();
+  drawCurve();
+  newRound();
+})();
+</script>
+<script>
+/* ============================================================
+   第 6 站：规模魔法
+============================================================ */
+(function scaleMagic(){
+  const SKILLS = ["认字","接句","通顺造句","翻译","写文章","推理","编程"];
+  const STAGES = [
+    { name: "小不点", p: "1 千参数 · 1 本故事书", lvl: 2,
+      say: "我刚会认字，能结结巴巴接几个字，别的都不会。" },
+    { name: "小学生", p: "100 万参数 · 几百本书", lvl: 3,
+      say: "我能造通顺的句子了！不过见识少，容易闹笑话。" },
+    { name: "大学生", p: "10 亿参数 · 一座图书馆", lvl: 5,
+      say: "我会翻译、写文章，天文地理都懂一点。" },
+    { name: "GPT 级", p: "上千亿参数 · 大半个互联网", lvl: 7,
+      say: "我会推理、写代码……有些本领没人专门教过，是自己'长'出来的。" },
+  ];
+
+  const row = $("#stageRow"), badgesBox = $("#stageBadges"), say = $("#stageSay");
+
+  SKILLS.forEach(s => {
+    const b = document.createElement("span");
+    b.className = "badge";
+    b.textContent = s;
+    badgesBox.appendChild(b);
+  });
+  const badges = $$("#stageBadges .badge");
+
+  STAGES.forEach((s, i) => {
+    const b = document.createElement("button");
+    b.className = "seg";
+    b.innerHTML = s.name + "<small>" + s.p + "</small>";
+    b.addEventListener("click", () => select(i));
+    row.appendChild(b);
+  });
+  const segs = $$("#stageRow .seg");
+
+  function select(i){
+    const s = STAGES[i];
+    segs.forEach((b, k) => b.classList.toggle("on", k === i));
+    badges.forEach((b, k) => b.classList.toggle("on", k < s.lvl));
+    say.innerHTML = "<b>" + s.name + "</b>（" + s.p + "）：" + s.say;
+  }
+
+  select(0);
 })();
 
 /* ============================================================
-   实验 7：小测验
+   第 7 站：串讲流水线
+============================================================ */
+(function pipeline(){
+  const STAGES = [
+    { t: "输入文本",    d: "你输入的问题或一句话" },
+    { t: "Token 切分",  d: "切成最小单位（第1站）" },
+    { t: "Embedding",   d: "查表变成坐标（第2站）" },
+    { t: "注意力层 ×N", d: "词与词互相打量（第3站）" },
+    { t: "前馈网络",    d: "每个词独立“消化“特征" },
+    { t: "输出概率",    d: "候选词打分→概率（第4站）" },
+    { t: "采样成词",    d: "按概率抽签（第8站温度）" },
+  ];
+  const DESCS = [
+    "一切从<b>你输入的文字</b>开始——就像你在每一站的输入框里做的事。",
+    "文字被切成 Token：<b>第 1 站</b>的分词器在这里工作。",
+    "每个 Token 查表变成一个向量坐标——<b>第 2 站</b>的“坐标名片”。",
+    "多层注意力让词与词互相打量、交换上下文——<b>第 3 站</b>的热力图就发生在这一层，这样的层叠了几十层。",
+    "每个词再独立“消化“一遍上下文，提炼成更抽象的特征（前馈网络）。",
+    "对词表里几万个候选词打分，归一化成概率——就是<b>第 4 站</b>那排“心理活动“条形图。",
+    "按概率抽一个词（温度决定胆子大小——<b>第 8 站</b>），拼回上文，然后<b>回到第 1 步循环</b>，直到生成结束。",
+  ];
+
+  const pipe = $("#pipe");
+  STAGES.forEach((s, i) => {
+    const n = document.createElement("div");
+    n.className = "pipe-node";
+    n.innerHTML = '<div class="no">' + String(i + 1).padStart(2, "0") + '</div><div class="t">' + s.t + '</div><div class="d">' + s.d + "</div>";
+    pipe.appendChild(n);
+  });
+
+  let step = 0, timer = null;
+  const nodes = $$("#pipe .pipe-node");
+
+  function show(){
+    nodes.forEach((n, i) => n.classList.toggle("on", i < step));
+    $("#pipeStep").textContent = "步骤 " + step + " / 7";
+    $("#pipeDesc").innerHTML = step === 0
+      ? "点击“下一步”，把前六站的零件串成一条流水线。"
+      : DESCS[step - 1] + (step === 7 ? "<br><b>这就是“文字接龙“的完整一圈！</b>" : "");
+  }
+  function stopAuto(){
+    if (timer){ clearInterval(timer); timer = null; $("#pipeAuto").textContent = "▶ 自动播放"; }
+  }
+
+  $("#pipeNext").addEventListener("click", () => { stopAuto(); step = Math.min(7, step + 1); show(); });
+  $("#pipePrev").addEventListener("click", () => { stopAuto(); step = Math.max(0, step - 1); show(); });
+  $("#pipeAuto").addEventListener("click", () => {
+    if (timer){ stopAuto(); return; }
+    if (step >= 7) step = 0;
+    $("#pipeAuto").textContent = "⏸ 暂停";
+    timer = setInterval(() => {
+      step++;
+      show();
+      if (step >= 7) stopAuto();
+    }, 1700);
+  });
+  show();
+})();
+
+/* ============================================================
+   第 8 站：温度
+============================================================ */
+(function temperature(){
+  const range = $("#tempRange"), val = $("#tempVal"), desc = $("#tempDesc");
+
+  function describe(t){
+    if (t <= 0.4) return "严谨：几乎总选最可能的词，稳但容易死板";
+    if (t <= 1.0) return "均衡：以大概率为主，偶尔冒点新词";
+    if (t <= 1.5) return "活泼：生僻词机会大增，开始有惊喜";
+    return "天马行空：哪里冷门往哪走，可能开始胡说";
+  }
+  function sync(){
+    const t = parseFloat(range.value);
+    val.textContent = t.toFixed(1);
+    desc.textContent = describe(t);
+  }
+  range.addEventListener("input", sync);
+  $$("[data-temp]").forEach(b => b.addEventListener("click", () => {
+    range.value = b.dataset.temp;
+    sync();
+  }));
+
+  const out = $("#tempOut");
+  $("#tempGo").addEventListener("click", () => {
+    const t = parseFloat(range.value);
+    let ctx = "小明";
+    typeGen(out, () => {
+      let s = "";
+      for (let k = 0; k < 60; k++) s += MiniLM.sample(ctx + s, t);
+      return s;
+    });
+  });
+
+  sync();
+})();
+
+/* ============================================================
+   第 9 站：幻觉找茬
+============================================================ */
+(function hallucination(){
+  $$(".spot-card").forEach(card => {
+    const msg = card.querySelector(".spot-msg");
+    const why = card.querySelector(".why");
+    card.addEventListener("click", e => {
+      if (card.classList.contains("solved")) return;
+      if (e.target.closest(".err-target")){
+        card.classList.add("solved");
+        msg.textContent = "火眼金睛！这里确实错了。";
+        msg.classList.add("ok");
+        why.classList.add("show");
+      } else if (e.target.closest(".spot-text")){
+        card.classList.add("shake");
+        msg.textContent = "这句看起来没问题呀，再找找可疑的地方……";
+        setTimeout(() => card.classList.remove("shake"), 300);
+      }
+    });
+  });
+
+  const out = $("#halluOut");
+  $("#halluGo").addEventListener("click", () => {
+    const ctx = $("#halluInput").value.trim() || "量子香蕉在花园里";
+    typeGen(out, () => {
+      let s = "";
+      for (let k = 0; k < 60; k++) s += MiniLM.sample(ctx + s, 0.95);
+      return s;
+    });
+  });
+})();
+
+/* ============================================================
+   第 10 站：结业测验
 ============================================================ */
 (function quiz(){
   const QUIZ = [
@@ -1061,7 +1627,7 @@ $$("main section").forEach(s => spyIO.observe(s));
       q: "从本质上说，大语言模型做的事情最接近：",
       opts: ["在数据库里搜索现成的答案", "根据上文，逐个预测下一个最可能出现的词", "像人一样先真正理解世界，再给出回答"],
       ans: 1,
-      exp: "大模型是“超级接龙选手”：它根据上下文计算每个候选词的概率，再从中挑选。答案并非预先存好的。"
+      exp: "它是“超级接龙选手”：根据上下文算出每个候选词的概率，再抽一个。答案并非预先存好的。"
     },
     {
       q: "Token 指的是什么？",
@@ -1076,20 +1642,33 @@ $$("main section").forEach(s => spyIO.observe(s));
       exp: "比如“它想玩“中的“它”，通过注意力回指到“小猫”，模型才能明白指代的是谁。"
     },
     {
-      q: "训练模型时，损失（Loss）通常会怎么变化？",
-      opts: ["一直上升", "始终保持不变", "总体不断下降（中间有小幅波动）"],
-      ans: 2,
-      exp: "训练就是反复“猜 → 错 → 改“的过程：预测越来越准，损失总体越来越小，就像小球滚向谷底。"
+      q: "模型的“训练“过程，本质上是什么？",
+      opts: ["工程师把知识一条条写进程序", "反复“猜 → 纠错 → 记一笔”，让正确答案更可能出现", "连接互联网，实时查资料"],
+      ans: 1,
+      exp: "你在第 5 站当老师的游戏就是训练：小模的计数表越来越偏向正确答案。GPT 只是换成了几千亿个参数旋钮。"
+    },
+    {
+      q: "把“温度“调得更高，模型的输出通常会：",
+      opts: ["更准确", "更随机、更多样，也更容易跑题", "运行得更快"],
+      ans: 1,
+      exp: "温度高 = 概率分布被抹平 = 抽签胆子大。第 8 站拖一拖滑块就明白了。"
+    },
+    {
+      q: "AI 有时会“一本正经地胡说八道”（幻觉），根本原因是：",
+      opts: ["它的数据库坏了", "它只按概率选“最像人话“的词，从不核实真假", "训练数据都是错的"],
+      ans: 1,
+      exp: "接龙的规则是“像不像人话”，不是“是不是真的”。所以重要事实一定要核实来源。"
     },
   ];
 
   const box = $("#quizBox");
+  const prog = $("#quizProg");
   let answered = 0, correct = 0;
 
   QUIZ.forEach((item, qi) => {
     const card = document.createElement("div");
     card.className = "card quiz-card";
-    card.innerHTML = `<div class="quiz-q">Q${qi + 1}. ${item.q}</div>`;
+    card.innerHTML = '<div class="quiz-q">Q' + (qi + 1) + ". " + item.q + "</div>";
     const exp = document.createElement("div");
     exp.className = "quiz-exp";
 
@@ -1104,18 +1683,19 @@ $$("main section").forEach(s => spyIO.observe(s));
           o.disabled = true;
           if (k === item.ans) o.classList.add("correct");
         });
-        if (oi === item.ans){ correct++; }
-        else b.classList.add("wrong");
+        if (oi === item.ans){ correct++; } else { b.classList.add("wrong"); }
         exp.innerHTML = "解析：" + item.exp;
         exp.classList.add("show");
         answered++;
+        prog.style.width = (answered / QUIZ.length * 100) + "%";
         if (answered === QUIZ.length){
           const sb = $("#scoreBox");
           sb.style.display = "block";
-          const msg = correct === 4 ? "满分！你已经理解大模型的核心原理了！"
-                    : correct >= 2 ? "不错！回去看看做错的实验，你会更清楚。"
-                    : "没关系——回到上面的实验再玩一遍，会有新收获。";
-          sb.innerHTML = `得分：<span class="grad">${correct} / 4</span><br><span style="font-size:15px;color:var(--muted);font-weight:400">${msg}</span>`;
+          const msg = correct === QUIZ.length ? "满分毕业！你已经真正看懂大模型了。"
+                    : correct >= 4 ? "不错！回去做错的那几站实验，你会更扎实。"
+                    : "没关系——回到上面把实验再玩一遍，会有新收获。";
+          sb.innerHTML = "得分：<span class='grad'>" + correct + " / " + QUIZ.length + "</span><br>" +
+            '<span style="font-size:15px;color:var(--muted);font-weight:400">' + msg + "</span>";
           sb.scrollIntoView({ behavior: "smooth", block: "center" });
         }
       });
