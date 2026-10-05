@@ -5,6 +5,9 @@
 ![类型](https://img.shields.io/badge/类型-教学演示-orange)
 ![技术](https://img.shields.io/badge/技术-HTML%2FCSS%2FJS-blue)
 ![依赖](https://img.shields.io/badge/依赖-零-green)
+[![Pages](https://img.shields.io/badge/Pages-已上线-brightgreen)](https://will-ww.github.io/llm-interactive-class/)
+
+**在线体验：https://will-ww.github.io/llm-interactive-class/**（GitHub Pages 托管）
 
 ## 项目简介
 
@@ -16,13 +19,15 @@
 
 ## 快速开始
 
-**方式一：本地打开**
+**方式一：在线访问（推荐）**
 
-下载本仓库的 [`index.html`](./index.html)，用浏览器（Chrome / Edge / Firefox 均可）双击打开即可。
+直接打开 👉 **https://will-ww.github.io/llm-interactive-class/**
 
-**方式二：在线访问（GitHub Pages）**
+站点由 GitHub Pages 托管，每次 `main` 分支更新后会自动重新部署（约 1~2 分钟生效）。
 
-仓库管理员可在 `Settings → Pages → Source` 中选择 `main` 分支启用 Pages，即可通过 `https://<用户名>.github.io/llm-interactive-class/` 在线访问。
+**方式二：本地打开**
+
+下载本仓库的 [`index.html`](./index.html)，用浏览器（Chrome / Edge / Firefox 均可）双击打开即可，无需联网。
 
 ## 课程一览
 
@@ -76,7 +81,9 @@
 
 ```
 .
-└── index.html   # 整个项目：HTML + CSS + JavaScript
+├── index.html   # 整个项目：HTML + CSS + JavaScript
+├── README.md    # 项目说明文档
+└── .nojekyll    # 告诉 GitHub Pages 跳过 Jekyll 处理，加快部署
 ```
 
 ## 适合人群
